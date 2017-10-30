@@ -1,0 +1,4 @@
+[submodule "scarab"]
+	path = scarab
+	url = https://guiguem@github.com/project8/scarab.git
+	branch = develop
