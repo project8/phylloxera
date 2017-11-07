@@ -1,1 +1,1 @@
-# tritium-spectrum
+# Tritium and Krypton spectrum ROOT analysis
