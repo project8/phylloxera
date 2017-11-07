@@ -57,11 +57,13 @@ message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 include_directories (BEFORE 
     ${PROJECT_SOURCE_DIR}/src/ToolBox
     ${PROJECT_SOURCE_DIR}/src/TritiumRooFit
+    ${PROJECT_SOURCE_DIR}/src/KryptonRooFit
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
     ${PROJECT_SOURCE_DIR}/src/exe
 )
 add_subdirectory (src/ToolBox)
 add_subdirectory (src/TritiumRooFit)
+add_subdirectory (src/KryptonRooFit)
 add_subdirectory (src/TritiumSpectrum)
 add_subdirectory (src/exe)
 

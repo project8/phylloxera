@@ -19,6 +19,6 @@ set( sources
 
 pbuilder_library( ToolBox sources "" )
 target_link_libraries (ToolBox ${ROOT_LIBRARIES})
-
+pbuilder_install_libraries(ToolBox)
 pbuilder_install_headers( ${headers} )
 
