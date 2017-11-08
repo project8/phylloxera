@@ -7,21 +7,23 @@
 #ifndef ROOREALTRITIUMSPECTRUM
 #define ROOREALTRITIUMSPECTRUM
 
-#include "RooAbsPdf.h"
 #include "RooRealProxy.h"
 #include "RooAbsReal.h"
+#include "RooAbsPdf.h"
 
+// namespace Phylloxera
+// {
 class RooRealTritiumSpectrum : public RooAbsPdf
 {
 public:
   RooRealTritiumSpectrum(){};
   RooRealTritiumSpectrum(const char *name, const char *title,
-                           RooAbsReal &_KE,
-                           RooAbsReal &_Q,
-                           RooAbsReal &_mbeta);
+                         RooAbsReal &_KE,
+                         RooAbsReal &_Q,
+                         RooAbsReal &_mbeta);
   RooRealTritiumSpectrum(const RooRealTritiumSpectrum &other, const char *name = 0);
   virtual TObject *clone(const char *newname) const { return new RooRealTritiumSpectrum(*this, newname); }
-  inline virtual ~RooRealTritiumSpectrum(){};
+  // inline virtual ~RooRealTritiumSpectrum(){};
 
 protected:
   RooRealProxy KE;
@@ -30,7 +32,8 @@ protected:
 
   Double_t evaluate() const;
 
-//  ClassDef(RooRealTritiumSpectrum,2) // Your description goes here...
+  //  ClassDef(RooRealTritiumSpectrum,2) // Your description goes here...
 };
+// }
 
 #endif

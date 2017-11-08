@@ -5,21 +5,17 @@
 set( headers
     RooRealTritiumSpectrum.hh
     RooSimpleTritiumSpectrum.hh
-    #RooSmearedTritiumSpectrum.hh
 )
 
 set( sources
     RooRealTritiumSpectrum.cxx    
     RooSimpleTritiumSpectrum.cxx    
-    #RooSmearedTritiumSpectrum.cxx
 )
 
 
 ###########
 # Library #
 ###########
-
-#add_library (TritiumRooFit ${sources} )
 
 pbuilder_library( TritiumRooFit  sources "")
 target_link_libraries (TritiumRooFit ${ROOT_LIBRARIES})

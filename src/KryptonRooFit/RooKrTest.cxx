@@ -9,23 +9,24 @@
 #include "Riostream.h"
 #include "TROOT.h"
 
-#include "RooKryptonLine.hh"
+#include "RooKrTest.hh"
 #include "RooAbsReal.h"
 #include <math.h>
 #include "TMath.h"
 
-RooKryptonLine::RooKryptonLine(const char *name, const char *title,
-                               RooAbsReal &_KE) : RooAbsPdf(name, title),
-                                                  KE("KE", "KE", this, _KE)
+RooKrTest::RooKrTest(const char *name, const char *title,
+                     RooAbsReal &_KE) : RooAbsPdf(name, title),
+                                        KE("KE", "KE", this, _KE)
 {
 }
 
-RooKryptonLine::RooKryptonLine(const RooKryptonLine &other, const char *name) : RooAbsPdf(other, name),
-                                                                                KE("KE", this, other.KE)
+RooKrTest::RooKrTest(const RooKrTest &other, const char *name) : RooAbsPdf(other, name),
+                                                                 KE("KE", this, other.KE)
 {
 }
 
-Double_t RooKryptonLine::evaluate() const
+Double_t RooKrTest::evaluate() const
 {
+
     return TMath::Exp(-KE * KE);
 }
