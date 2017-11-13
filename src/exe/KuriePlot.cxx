@@ -15,13 +15,15 @@
 #include "RooDataHist.h"
 #include "RooGenericPdf.h"
 
-#include "RooRealTritiumSpectrum.hh"
-#include "RooSmearedTritiumSpectrum.hh"
+#include "RealTritiumSpectrum.hh"
+// #include "SmearedTritiumSpectrum.hh"
 #include "Plots.cpp"
 #include "RooFitTools.cpp"
 
 #include "logger.hh"
 
+namespace Phylloxera
+{
 const double Q = 18.6E+3; // eV
 // const double t = 1 * seconds_per_year();
 const double massNu = 0;
@@ -44,7 +46,7 @@ void spectrum()
     RooRealVar tEndpoint("endpoint", "Endpoint", 18.6e3, 17e3, 19e3);
     RooRealVar tNeutrinoMass("neutrinoMass", "NeutrinoMass", 100., 0., 1000.);
     RooRealVar tB("background", "Background", 0.);
-    RooRealTritiumSpectrum tritumSpectrum("tritiumSpectrum", "TritiumSpectrum", tKE, tEndpoint, tNeutrinoMass);
+    RealTritiumSpectrum tritumSpectrum("tritiumSpectrum", "TritiumSpectrum", tKE, tEndpoint, tNeutrinoMass);
 
     //Background data
     RooDataSet *dataTritium = tritumSpectrum.generate(tKE, 100000);
@@ -156,7 +158,7 @@ void smeared_spectrum()
     // RooRealVar errorsg("errorsg","errorsg",sigmaKE*relErrSigmaKE); // error on the width of the convolution
 
     RooGaussian gauss("gauss", "gauss", tKE, mg, sg);
-    RooRealTritiumSpectrum simpleSpectrum("tritiumSpectrum", "TritiumSpectrum", tKE, tEndpoint, tNeutrinoMass);
+    RealTritiumSpectrum simpleSpectrum("tritiumSpectrum", "TritiumSpectrum", tKE, tEndpoint, tNeutrinoMass);
     RooGenericPdf beta("beta", "background+ (endpoint-KE>neutrinoMass)*3*1e10/13/pow(endpoint,3)*(endpoint-KE)*sqrt(pow(endpoint-KE,2)-pow(neutrinoMass,2))", RooArgSet(tKE, tEndpoint, tNeutrinoMass, tB));
 
     // RooRealVar signalfrac("signalfrac","fraction of component 1 in signal",1.) ;
@@ -259,7 +261,9 @@ void makeAndUseModel()
     // TH1F kurieHisto = getKuriePlot(getDataFromDataset(data2,"kineticEnergy"));
     c->SaveAs("testOldModel.pdf");
 }
+}
 
+using namespace Phylloxera;
 int main()
 {
     TStyle *m_gStyle = new TStyle();

@@ -5,7 +5,7 @@ inline double ElectronMassInKilogram() { return 9.10938356e-31; } // Electron ma
 inline double ElectronCharge() { return -1.6021766208e-19; }      // Electron charge in Coulomb
 inline double PlanckConstant() { return 6.582119514e-16; }        // Reduced Planck's constant in eV*s
 inline double LightSpeed() { return 299792458.; }                 // Speed of light in m/s
-// double HBarC() {return hbar() * c();}						                            // hbar * c
+// inline double HBarC() { return hbar() * c(); }                                                // hbar * c
 inline double AngularGyromagneticRatio() { return 1.758820088e+11; }                          // Angular gyromagnetic ratio in rad Hz/Tesla
 inline double GyromagneticRatio() { return AngularGyromagneticRatio() / (2. * TMath::Pi()); } // Gyromagnetic ratio in Hz/Tesla
 inline double BoltzmanConstant() { return 8.61733238e-5; }                                    // Boltzmann's constant in eV/Kelvin

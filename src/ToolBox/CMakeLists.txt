@@ -1,9 +1,8 @@
 ###########
-# control #
+# ToolBox #
 ###########
 
 set( sources
-    #Constant.cpp
     Conversion.cpp
     Plots.cpp
     RooFitTools.cpp
@@ -13,9 +12,6 @@ set( sources
 ###########
 # library #
 ###########
-
-
-#add_library (ToolBox ${sources} )
 
 pbuilder_library( ToolBox sources "" )
 target_link_libraries (ToolBox ${ROOT_LIBRARIES})

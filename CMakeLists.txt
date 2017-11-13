@@ -23,6 +23,7 @@ pbuilder_prepare_project()
 
 pbuilder_add_submodule( Scarab Scarab/library )
 
+
 ######
 # ROOT
 ######
@@ -55,15 +56,17 @@ message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 
 # subdirectories
 include_directories (BEFORE 
+    ${PROJECT_SOURCE_DIR}/src/PdfFactory
     ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/TritiumRooFit
-    ${PROJECT_SOURCE_DIR}/src/KryptonRooFit
+    ${PROJECT_SOURCE_DIR}/src/TritiumPdf
+    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
     ${PROJECT_SOURCE_DIR}/src/exe
 )
+add_subdirectory (src/PdfFactory)
 add_subdirectory (src/ToolBox)
-add_subdirectory (src/TritiumRooFit)
-add_subdirectory (src/KryptonRooFit)
+add_subdirectory (src/TritiumPdf)
+add_subdirectory (src/KryptonPdf)
 add_subdirectory (src/TritiumSpectrum)
 add_subdirectory (src/exe)
 
@@ -73,3 +76,6 @@ add_subdirectory (src/exe)
 
 pbuilder_install_config_files()
 pbuilder_variables_for_parent()
+
+message ( STATUS "-- Installing ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py")
+file(COPY ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py DESTINATION .)
