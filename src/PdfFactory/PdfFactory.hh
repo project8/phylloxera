@@ -13,6 +13,12 @@ namespace Phylloxera
 class PdfFactory : public TObject
 {
   public:
+    enum SmearingType
+    {
+        Cauchy,
+        Lorentzian,
+        Gaussian
+    };
     PdfFactory() { std::cout << "Hello you!" << std::endl; };
 
     template <class PdfClass>
@@ -22,7 +28,7 @@ class PdfFactory : public TObject
     };
 
     template <class PdfClass>
-    RooFFTConvPdf *GetSmearedPdf(const char *, const char *, RooRealVar *, PdfClass *, RooRealVar *, int = 10000);
+    RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, int = 10000);
 };
 }
 #endif
