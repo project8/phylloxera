@@ -77,5 +77,5 @@ add_subdirectory (src/exe)
 pbuilder_install_config_files()
 pbuilder_variables_for_parent()
 
-message ( STATUS "-- Installing ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py")
+message ( STATUS "Installing ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py")
 file(COPY ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py DESTINATION .)

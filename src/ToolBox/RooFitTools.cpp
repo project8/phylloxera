@@ -1,5 +1,8 @@
 #include "RooDataSet.h"
 
+namespace Phylloxera
+{
+
 inline std::vector<double> getDataFromDataset(RooDataSet *data, const char *name)
 // Extract the values of a dataset into a vector
 {
@@ -9,4 +12,5 @@ inline std::vector<double> getDataFromDataset(RooDataSet *data, const char *name
         vectorData.push_back(data->get(i)->getRealValue(name));
     }
     return vectorData;
+}
 }

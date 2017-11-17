@@ -8,6 +8,8 @@
 #include <math.h>
 #include "TMath.h"
 
+namespace Phylloxera
+{
 KryptonLine::KryptonLine(const char *name, const char *title,
                          RooAbsReal &_KE, RooAbsReal &_mean, RooAbsReal &_HWHM) : RooAbsPdf(name, title),
                                                                                   KE("KE", "KE", this, _KE),
@@ -52,4 +54,5 @@ Double_t KryptonLine::analyticalIntegral(Int_t code, const char *rangeName) cons
 
     assert(0);
     return 0;
+}
 }

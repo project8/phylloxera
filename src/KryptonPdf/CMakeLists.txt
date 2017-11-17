@@ -4,12 +4,10 @@
 
 set( headers
     KryptonLine.hh
-    KrTest.hh
 )
 
 set( sources
     KryptonLine.cxx    
-    KrTest.cxx    
 )
 
 ###########

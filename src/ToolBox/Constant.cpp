@@ -1,5 +1,8 @@
 #include "TMath.h"
 
+namespace Phylloxera
+{
+
 inline double ElectronMassIneV() { return 510998.910; }           // Electron mass in eV
 inline double ElectronMassInKilogram() { return 9.10938356e-31; } // Electron mass in kilogram
 inline double ElectronCharge() { return -1.6021766208e-19; }      // Electron charge in Coulomb
@@ -16,3 +19,4 @@ inline double FineStructureConstant() { return 0.0072973525664; }               
 inline double eVInJoule() { return 1.602176565e-19; }  // conversion of one eV in Joule
 inline double eVInKilogram() { return 1.782662 - 36; } // conversion of one eV in kilogram
 // double PhaseVelocity(){return ;}
+}

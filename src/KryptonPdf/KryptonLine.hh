@@ -6,6 +6,8 @@
 #include "RooAbsPdf.h"
 #include "RooBreitWigner.h"
 
+namespace Phylloxera
+{
 class KryptonLine : public RooAbsPdf
 {
 public:
@@ -25,5 +27,6 @@ protected:
   RooRealProxy mean;
   RooRealProxy HWHM;
 };
+}
 
 #endif

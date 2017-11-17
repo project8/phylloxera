@@ -5,6 +5,9 @@
 #include "VectorTools.cpp"
 #include "TritiumSpectrum.cpp"
 
+namespace Phylloxera
+{
+
 TH1F getKuriePlot(std::vector<double> vData)
 {
     double xMin = getMinFromVector(vData);
@@ -21,4 +24,5 @@ TH1F getKuriePlot(std::vector<double> vData)
         kurieHisto.SetBinContent(iBin, kurieValue);
     }
     return kurieHisto;
+}
 }

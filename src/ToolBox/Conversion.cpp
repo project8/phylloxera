@@ -1,6 +1,9 @@
 #include "TMath.h"
 #include "Constant.cpp"
 
+namespace Phylloxera
+{
+
 inline double GetKineticEnergyFromFrequency(double frequency, double B)
 //Return kinetic energy in eV
 {
@@ -12,4 +15,5 @@ inline double GetFrequencyFromKineticEnergy(double kineticEnergy, double B)
 {
 	double gamma = 1. + kineticEnergy / ElectronMassIneV();
 	return GyromagneticRatio() / gamma * B;
+}
 }

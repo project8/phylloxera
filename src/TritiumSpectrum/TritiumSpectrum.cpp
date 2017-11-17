@@ -2,8 +2,9 @@
 #define TRITIUMSPECTRUM
 
 #include "Constant.cpp"
-// #include "Math/WrappedTF1.h"
-// #include "Math/GSLIntegrator.h"
+
+namespace Phylloxera
+{
 
 double DiracFermiFunction(double E, double Z, double m)
 {
@@ -36,5 +37,6 @@ Double_t TritiumSpectrumShape(Double_t *x, Double_t *par)
     if (xx > par[0])
         return 0;
     return par[3] * TritiumSpectrumShape(xx, par[0], par[1], par[2]);
+}
 }
 #endif
