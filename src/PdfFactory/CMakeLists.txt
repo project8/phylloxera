@@ -3,14 +3,12 @@
 ##############
 
 set( headers
-    Base.hh
-    Project8PdfFactory.hh
+    PdfFactory.hh
 )
 
 
 set( sources
-    Base.cxx
-    Project8PdfFactory.cxx
+    PdfFactory.cxx
 )
 
 ###########
