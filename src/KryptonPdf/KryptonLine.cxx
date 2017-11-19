@@ -20,14 +20,14 @@ KryptonLine::KryptonLine(const char *name, const char *title,
 
 KryptonLine::KryptonLine(const KryptonLine &other, const char *name) : RooAbsPdf(other, name),
                                                                        KE("KE", this, other.KE),
-                                                                       HWHM("HWHM", "HWHM", this, other.HWHM)
+                                                                       mean("mean", this, other.mean),
+                                                                       HWHM("HWHM", this, other.HWHM)
 {
 }
 
 Double_t KryptonLine::evaluate() const
 {
     Double_t arg = KE - mean;
-    std::cout << 1. / (TMath::Pi() * HWHM) / (1. + TMath::Power(arg / HWHM, 2)) << std::endl;
     return 1. / (TMath::Pi() * HWHM) / (1. + TMath::Power(arg / HWHM, 2));
 }
 

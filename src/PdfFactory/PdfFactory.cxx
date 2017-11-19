@@ -1,26 +1,13 @@
 #include "PdfFactory.hh"
 
-#include "RooBreitWigner.h"
-#include "RooGaussian.h"
-
 namespace Phylloxera
 {
 
-template <class PdfClass>
-RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType, RooRealVar *variable, PdfClass *pdf, RooRealVar *smearingVar, int numberBinsCache)
+PdfFactory::PdfFactory(const char *name, const char *title) : TObject()
 {
-    variable->setBins(numberBinsCache, "cache");
+}
 
-    RooRealVar *smearingCenter = new RooRealVar("mean", "mean", 0.);
-
-    switch (SmearingType)
-    {
-    case Cauchy:
-        RooBreitWigner *tCauchy = new RooBreitWigner("tCauchy", "Cauchy", variable, smearingCenter, smearingVar);
-        return new RooFFTConvPdf(name, name, variable, pdf, tCauchy);
-    default:
-        RooGaussian *tCauchy = new RooGaussian("tCauchy", "Cauchy", variable, , smearingCentersmearingVar);
-        return new RooFFTConvPdf(name, name, variable, pdf, tCauchy);
-    };
-};
+PdfFactory::PdfFactory(const PdfFactory &other, const char *name) : TObject()
+{
+}
 }
