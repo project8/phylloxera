@@ -1,7 +1,6 @@
 #ifndef KRYPTONLINE_HH
 #define KRYPTONLINE_HH
 
-#include "TClass.h"
 #include "RooRealProxy.h"
 #include "RooAbsReal.h"
 #include "RooAbsPdf.h"
@@ -27,6 +26,9 @@ protected:
   RooRealProxy KE;
   RooRealProxy mean;
   RooRealProxy HWHM;
+
+public:
+  ClassDef(KryptonLine, 1)
 };
 }
 #endif

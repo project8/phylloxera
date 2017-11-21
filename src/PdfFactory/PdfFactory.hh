@@ -25,16 +25,19 @@ class PdfFactory : public TObject
         Gaussian
     };
     PdfFactory() { std::cout << "Hello you!" << std::endl; };
-    PdfFactory(const char *name, const char *title);
-    PdfFactory(const PdfFactory &other, const char *name = 0);
-    virtual TObject *clone(const char *newname) const { return new PdfFactory(*this, newname); }
-    inline virtual ~PdfFactory(){};
+    // PdfFactory(const char *, const char *);
+    // PdfFactory(const char *name, const char *title) { std::cout << "Hello you!" << std::endl; };
+    // PdfFactory(const PdfFactory &other, const char *name) { std::cout << "Hello you!" << std::endl; };
+    // virtual PdfFactory *clone(const char *newname) const { return new PdfFactory(*this, newname); }
+    // inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
     PdfClass createPdf(PdfClass);
 
     template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
+
+    ClassDef(PdfFactory, 1)
 };
 
 template <class PdfClass>
@@ -66,5 +69,8 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
 };
+
+template RooGaussian PdfFactory::createPdf<RooGaussian>(RooGaussian);
+template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name, SmearingType type, RooRealVar *variable, RooGaussian *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache);
 }
 #endif

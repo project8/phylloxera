@@ -3,11 +3,9 @@
 namespace Phylloxera
 {
 
-PdfFactory::PdfFactory(const char *name, const char *title) : TObject()
-{
-}
+// PdfFactory::PdfFactory(const char *name, const char *title){};
 
-PdfFactory::PdfFactory(const PdfFactory &other, const char *name) : TObject()
-{
-}
+// PdfFactory::PdfFactory(const PdfFactory &other, const char *name) : TNamed(other)
+// {
+// }
 }
