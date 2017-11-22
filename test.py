@@ -4,10 +4,16 @@ from ROOT import Phylloxera
 
 import ROOT
 from ROOT import RooRealVar, RooArgSet, RooDataSet
-from ROOT.Phylloxera import PdfFactory
+# from ROOT.Phylloxera import KryptonLine, PdfFactory
+# from ROOT import MyClass
+a = Phylloxera.PdfFactory("fuk")
+print(a.testFunc())
 KE = ROOT.RooRealVar("KE", "KE", 17500, 17000, 18000)
 mean = ROOT.RooRealVar("mean", "mean", 17800)
 width = ROOT.RooRealVar("width", "width", 1)
+meanGauss = ROOT.RooRealVar("meanGauss", "meanGauss", 0)
+
+gaus = ROOT.RooGaussian("gauss", "gaus", KE, mean, width)
 
 b = Phylloxera.KryptonLine("KrLine", "KrLine", KE, mean, width)
 data = b.generate(RooArgSet(KE), 1000)
@@ -22,6 +28,11 @@ KEframe.Draw()
 c1.SaveAs("cdf.pdf")
 
 b = Phylloxera.RealTritiumSpectrum()
-test = PdfFactory()
+test = Phylloxera.PdfFactory()
 print(test)
-test.GetSmearedPdf("testing", TObjectNew.Gaussian, KE, b, width)
+# testC = Phylloxera.PdfFactory.SmearingType(1)
+smearedFunc = test.GetSmearedPdf(ROOT.RooGaussian)(
+    "testing", 1, KE, gaus, meanGauss, width)
+smearedFunc.plotOn(KEframe)
+KEframe.Draw()
+c1.SaveAs("sbf.pdf")

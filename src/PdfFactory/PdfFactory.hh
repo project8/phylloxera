@@ -1,9 +1,9 @@
 #ifndef PDFFACTORY
 #define PDFFACTORY
 
-#include "TObject.h"
+// #include "TObject.h"
 #include <iostream>
-#include "logger.hh"
+// #include "logger.hh"
 
 #include "RooGaussian.h"
 #include "RooRealVar.h"
@@ -11,11 +11,32 @@
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
 
-LOGGER(pdffactory, "PdfFactory");
+// LOGGER(pdffactory, "PdfFactory");
 
 namespace Phylloxera
 {
-class PdfFactory : public TObject
+class MyClass
+{
+  public:
+    MyClass(int value = 0)
+    {
+        m_value = value;
+    }
+
+    void SetValue(int value)
+    {
+        m_value = value;
+    }
+
+    int GetValue()
+    {
+        return m_value;
+    }
+
+  private:
+    int m_value;
+};
+class PdfFactory
 {
   public:
     enum SmearingType
@@ -24,12 +45,13 @@ class PdfFactory : public TObject
         Lorentzian,
         Gaussian
     };
-    PdfFactory() { std::cout << "Hello you!" << std::endl; };
+    PdfFactory(const char *name = "") : fName(name) { std::cout << "Hello you! My name is " << name << std::endl; };
+    void testFunc() { std::cout << "test" << std::endl; }
     // PdfFactory(const char *, const char *);
     // PdfFactory(const char *name, const char *title) { std::cout << "Hello you!" << std::endl; };
     // PdfFactory(const PdfFactory &other, const char *name) { std::cout << "Hello you!" << std::endl; };
     // virtual PdfFactory *clone(const char *newname) const { return new PdfFactory(*this, newname); }
-    // inline virtual ~PdfFactory() = default;
+    inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
     PdfClass createPdf(PdfClass);
@@ -37,6 +59,8 @@ class PdfFactory : public TObject
     template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
 
+  protected:
+    const char *fName;
     ClassDef(PdfFactory, 1)
 };
 
@@ -60,14 +84,15 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        // LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        // LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
+    return 0;
 };
 
 template RooGaussian PdfFactory::createPdf<RooGaussian>(RooGaussian);

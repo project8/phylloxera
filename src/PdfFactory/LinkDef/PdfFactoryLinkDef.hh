@@ -9,6 +9,9 @@
 
 #pragma link C++ namespace Phylloxera;
 
-#pragma link C++ class Phylloxera::PdfFactory+;
+#pragma link C++ class Phylloxera::PdfFactory + ;
+#pragma link C++ class Phylloxera::MyClass + ;
+
+#pragma link C++ function Phylloxera::PdfFactory::GetSmeared;
 
 #endif
