@@ -62,6 +62,12 @@ import sys
 from ROOT import ROOT, gInterpreter, gSystem, RooFit
 
 logger.debug("Include headers")
+logger_include = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "include/Phylloxera/Scarab/logger.hh")
+logger.debug("\t->{}".format(logger_include))
+gInterpreter.ProcessLine('#include "{}"'.format(logger_include))
+
+
 path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "include/Phylloxera")
 for afile in os.listdir(path):

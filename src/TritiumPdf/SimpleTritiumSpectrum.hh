@@ -32,7 +32,7 @@ protected:
 
   Double_t evaluate() const;
 
-  //  ClassDef(RooRealTritiumSpectrum,2) // Your description goes here...
+   ClassDef(SimpleTritiumSpectrum,1) // Your description goes here...
 };
 }
 

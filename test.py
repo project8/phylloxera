@@ -29,8 +29,9 @@ c1.SaveAs("cdf.pdf")
 
 b = Phylloxera.RealTritiumSpectrum()
 test = Phylloxera.PdfFactory()
+print(Phylloxera.PdfFactory.SmearingType.__doc__)
+print(num)
 print(test)
-# testC = Phylloxera.PdfFactory.SmearingType(1)
 smearedFunc = test.GetSmearedPdf(ROOT.RooGaussian)(
     "testing", 1, KE, gaus, meanGauss, width)
 smearedFunc.plotOn(KEframe)

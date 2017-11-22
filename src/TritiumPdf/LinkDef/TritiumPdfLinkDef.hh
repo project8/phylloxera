@@ -9,11 +9,7 @@
 
 #pragma link C++ namespace Phylloxera;
 
-#pragma link C++ class Phylloxera::PdfFactory + ;
-#pragma link C++ class Phylloxera::MyClass + ;
-
-#pragma link C++ function Phylloxera::PdfFactory::GetSmeared;
-
-#pragma link C++ enum Phylloxera::PdfFactory::SmearingType;
+#pragma link C++ class Phylloxera::RealTritiumSpectrum+;
+#pragma link C++ class Phylloxera::SimpleTritiumSpectrum+;
 
 #endif

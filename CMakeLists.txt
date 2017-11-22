@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.1)
 #########
 
 cmake_policy( SET CMP0048 NEW ) # version in project()
-project( Phylloxera VERSION 0.0.1 )
+project( Phylloxera VERSION 1.0.0 )
 
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/scarab/cmake)
 

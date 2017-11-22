@@ -3,7 +3,7 @@
 
 // #include "TObject.h"
 #include <iostream>
-// #include "logger.hh"
+#include "logger.hh"
 
 #include "RooGaussian.h"
 #include "RooRealVar.h"
@@ -11,7 +11,7 @@
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
 
-// LOGGER(pdffactory, "PdfFactory");
+LOGGER(pdffactory, "PdfFactory");
 
 namespace Phylloxera
 {
