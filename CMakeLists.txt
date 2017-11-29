@@ -17,12 +17,12 @@ pbuilder_prepare_project()
 # dependencies #
 ########################
 
-########
-# Scarab
-########
+###################
+# Scarab and Cicada
+###################
 
 pbuilder_add_submodule( Scarab Scarab/library )
-
+pbuilder_add_submodule( Cicada Cicada )
 
 ######
 # ROOT
