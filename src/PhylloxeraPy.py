@@ -61,21 +61,6 @@ import os
 import sys
 from ROOT import ROOT, gInterpreter, gSystem, RooFit
 
-logger.debug("Include headers")
-logger_include = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), "include/Phylloxera/Scarab/logger.hh")
-logger.debug("\t->{}".format(logger_include))
-gInterpreter.ProcessLine('#include "{}"'.format(logger_include))
-
-
-path = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), "include/Phylloxera")
-for afile in os.listdir(path):
-    if afile.endswith(".hh"):
-        logger.debug("\t->{}".format(os.path.join(path, afile)))
-        gInterpreter.ProcessLine(
-            '#include "{}"'.format(os.path.join(path, afile)))
-
 logger.debug("Import lib")
 path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "lib")
@@ -83,4 +68,15 @@ for afile in os.listdir(path):
     if afile.endswith(".dylib"):
         logger.debug("\t->{}".format(os.path.join(path, afile)))
         gSystem.Load(os.path.join(path, afile))
+
+logger.debug("Include headers")
+gInterpreter.AddIncludePath("{}".format(os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera/Scarab")))
+gInterpreter.AddIncludePath("{}".format(os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera/Cicada")))
+
+path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera")
+for afile in os.listdir(path):
+    if afile.endswith(".hh"):
+        logger.debug("\t->{}".format(os.path.join(path, afile)))
+        gInterpreter.ProcessLine('#include "{}"'.format(os.path.join(path, afile)))
+
 logger.info("All set!")
