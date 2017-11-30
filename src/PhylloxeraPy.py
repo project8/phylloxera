@@ -59,7 +59,10 @@ def print_logo():
 print_logo()
 import os
 import sys
-from ROOT import ROOT, gInterpreter, gSystem, RooFit
+from ROOT import ROOT, gInterpreter, gSystem, RooFit, RooMsgService
+
+RooMsgService.instance().setSilentMode(True)
+RooMsgService.instance().setGlobalKillBelow(5)
 
 logger.debug("Import lib")
 path = os.path.join(os.path.dirname(
