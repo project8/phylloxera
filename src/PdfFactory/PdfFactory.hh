@@ -15,27 +15,6 @@ LOGGER(pdffactory, "PdfFactory");
 
 namespace Phylloxera
 {
-class MyClass
-{
-  public:
-    MyClass(int value = 0)
-    {
-        m_value = value;
-    }
-
-    void SetValue(int value)
-    {
-        m_value = value;
-    }
-
-    int GetValue()
-    {
-        return m_value;
-    }
-
-  private:
-    int m_value;
-};
 class PdfFactory
 {
   public:
@@ -84,11 +63,11 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        // LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        // LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };

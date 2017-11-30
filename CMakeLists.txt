@@ -14,6 +14,12 @@ include( PackageBuilder )
 pbuilder_prepare_project()
 
 ########################
+# options #
+########################
+
+option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TRUE )
+
+########################
 # dependencies #
 ########################
 
@@ -70,14 +76,17 @@ add_subdirectory (src/IO)
 add_subdirectory (src/TritiumPdf)
 add_subdirectory (src/KryptonPdf)
 add_subdirectory (src/TritiumSpectrum)
-add_subdirectory (src/exe)
+IF (Phylloxera_ENABLE_EXECUTABLES)
+    add_subdirectory (src/exe)
+ENDIF(Phylloxera_ENABLE_EXECUTABLES)
 
 #######################
 # installation config #
 #######################
 
+IF (Phylloxera_ADD_PHYLLOXERA_PY)
+    pbuilder_install_files (. ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py "")
+ENDIF(Phylloxera_ADD_PHYLLOXERA_PY)
+
 pbuilder_install_config_files()
 pbuilder_variables_for_parent()
-
-message ( STATUS "Installing ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py")
-file(COPY ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py DESTINATION .)
