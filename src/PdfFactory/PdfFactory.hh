@@ -63,11 +63,11 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
