@@ -18,8 +18,6 @@ public:
   virtual TObject *clone(const char *newname) const { return new AsymmetricKryptonLine(*this, newname); }
   inline virtual ~AsymmetricKryptonLine(){};
 
-  // Int_t getAnalyticalIntegral(RooArgSet &allVars, RooArgSet &analVars, const char *rangeName = 0) const;
-  // Double_t analyticalIntegral(Int_t code, const char *rangeName = 0) const;
   Double_t evaluate() const;
 
 protected:
