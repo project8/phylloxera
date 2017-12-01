@@ -3,14 +3,17 @@
 #################
 
 set (KRYPTONPDF_HEADERFILES
+AsymmetricKryptonLine.hh
 KryptonLine.hh
 )
 
 set (KRYPTONPDF_SOURCEFILES
+AsymmetricKryptonLine.cxx
 KryptonLine.cxx 
 )
 
 set (KRYPTONPDF_DICT_HEADERFILES
+AsymmetricKryptonLine.hh
 KryptonLine.hh
 )
 

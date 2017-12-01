@@ -9,6 +9,7 @@
 
 #pragma link C++ namespace Phylloxera;
 
-#pragma link C++ class Phylloxera::KryptonLine+;
+#pragma link C++ class Phylloxera::KryptonLine + ;
+#pragma link C++ class Phylloxera::AsymmetricKryptonLine + ;
 
 #endif

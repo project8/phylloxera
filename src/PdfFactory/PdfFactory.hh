@@ -8,6 +8,8 @@
 #include "RooGaussian.h"
 #include "RooRealVar.h"
 #include "RooFFTConvPdf.h"
+#include "RooAddPdf.h"
+
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
 
@@ -33,20 +35,13 @@ class PdfFactory
     inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
-    PdfClass createPdf(PdfClass);
-
-    template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
+    template <class PdfClass>
+    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
 
   protected:
     const char *fName;
     ClassDef(PdfFactory, 1)
-};
-
-template <class PdfClass>
-PdfClass PdfFactory::createPdf(PdfClass object)
-{
-    return PdfClass(object, "test");
 };
 
 template <class PdfClass>
@@ -63,18 +58,31 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
     return 0;
 };
 
-template RooGaussian PdfFactory::createPdf<RooGaussian>(RooGaussian);
-template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name, SmearingType type, RooRealVar *variable, RooGaussian *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache);
+template <class PdfClass>
+RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *backgroundFraction)
+{
+    RooChebychev *bkg = new RooChebychev("bkg", "background p.d.f.", *variable);
+    RooRealVar bkgfrac("sigfrac", "fraction of background", 0.2, 0., 1.);
+    RooAddPdf *model = new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*nsig, *nbkg));
+}
+
+template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
+                                                               SmearingType type,
+                                                               RooRealVar *variable,
+                                                               RooGaussian *pdf,
+                                                               RooRealVar *smearingCenter,
+                                                               RooRealVar *smearingVar,
+                                                               int numberBinsCache);
 }
 #endif
