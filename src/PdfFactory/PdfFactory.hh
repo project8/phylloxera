@@ -28,6 +28,7 @@ class PdfFactory
         Lorentzian,
         Gaussian
     };
+    PdfFactory(){};
     PdfFactory(const char *name = "") : fName(name) { LINFO(pdffactory, "Hello you! My name is " << name); };
     void testFunc() { std::cout << "test" << std::endl; }
     // PdfFactory(const char *, const char *);

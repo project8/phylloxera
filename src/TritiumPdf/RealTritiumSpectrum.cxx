@@ -7,6 +7,8 @@
 
 #include "TritiumSpectrum.cpp"
 
+ClassImp(Phylloxera::RealTritiumSpectrum);
+
 namespace Phylloxera
 {
 RealTritiumSpectrum::RealTritiumSpectrum(const char *name, const char *title,
