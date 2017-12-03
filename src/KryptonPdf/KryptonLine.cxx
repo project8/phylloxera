@@ -5,11 +5,13 @@
 
 #include "KryptonLine.hh"
 #include "RooAbsReal.h"
+#include "TClass.h"
 #include <math.h>
 #include "TMath.h"
 
 namespace Phylloxera
 {
+
 KryptonLine::KryptonLine(const char *name, const char *title,
                          RooAbsReal &_KE, RooAbsReal &_mean, RooAbsReal &_HWHM) : RooAbsPdf(name, title),
                                                                                   KE("KE", "KE", this, _KE),

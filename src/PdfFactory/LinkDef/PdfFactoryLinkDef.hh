@@ -10,9 +10,9 @@
 #pragma link C++ namespace Phylloxera;
 
 #pragma link C++ class Phylloxera::PdfFactory + ;
-#pragma link C++ class Phylloxera::MyClass + ;
 
-#pragma link C++ function Phylloxera::PdfFactory::GetSmeared;
+#pragma link C++ function Phylloxera::PdfFactory::GetSmearedPdf;
+#pragma link C++ function Phylloxera::PdfFactory::AddBackground;
 
 #pragma link C++ enum Phylloxera::PdfFactory::SmearingType;
 

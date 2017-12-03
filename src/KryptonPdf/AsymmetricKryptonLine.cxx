@@ -4,9 +4,13 @@
 #include "RooAbsReal.h"
 #include <math.h>
 #include "TMath.h"
+#include "TClass.h"
+#include "Riostream.h"
+#include "RooFit.h"
 
 namespace Phylloxera
 {
+
 AsymmetricKryptonLine::AsymmetricKryptonLine(const char *name, const char *title,
                                              RooAbsReal &_KE, RooAbsReal &_mean, RooAbsReal &_HWHM, RooAbsReal &_alpha) : RooAbsPdf(name, title),
                                                                                                                           KE("KE", "KE", this, _KE),

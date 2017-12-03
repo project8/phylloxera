@@ -12,6 +12,8 @@
 
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
+#include "RooChebychev.h"
+#include "RooUniform.h"
 
 LOGGER(pdffactory, "PdfFactory");
 
@@ -37,7 +39,7 @@ class PdfFactory
     template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
     template <class PdfClass>
-    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
+    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *);
 
   protected:
     const char *fName;
@@ -48,8 +50,6 @@ template <class PdfClass>
 RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, RooRealVar *variable, PdfClass *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache)
 {
     variable->setBins(numberBinsCache, "cache");
-
-    // RooRealVar *smearingCenter = new RooRealVar("mean", "mean", 0.);
 
     RooBreitWigner *tCauchy = new RooBreitWigner("tCauchy", "Cauchy", *variable, *smearingCenter, *smearingVar);
     RooGaussian *tGaussian = new RooGaussian("tGaussian", "Gaussian", *variable, *smearingCenter, *smearingVar);
@@ -69,14 +69,6 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     return 0;
 };
 
-template <class PdfClass>
-RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *backgroundFraction)
-{
-    RooChebychev *bkg = new RooChebychev("bkg", "background p.d.f.", *variable);
-    RooRealVar bkgfrac("sigfrac", "fraction of background", 0.2, 0., 1.);
-    RooAddPdf *model = new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*nsig, *nbkg));
-}
-
 template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
                                                                SmearingType type,
                                                                RooRealVar *variable,
@@ -84,5 +76,19 @@ template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
                                                                RooRealVar *smearingCenter,
                                                                RooRealVar *smearingVar,
                                                                int numberBinsCache);
+
+template <class PdfClass>
+RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *backgroundFraction)
+{
+    // RooRealVar *signalFraction = new RooRealVar("sigfrac", "fraction of signal", 1.);
+    // RooRealVar *coefBackground = new RooRealVar("coefBackground", "background coef", .);
+    RooUniform *bkg = new RooUniform("bkg", "background p.d.f.", *variable);
+    // we set the signal fraction to one such as it will be easier to calculate the background fraction
+    return new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*backgroundFraction));
+};
+template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
+                                                           RooRealVar *variable,
+                                                           RooGaussian *pdf,
+                                                           RooRealVar *backgroundFraction);
 }
 #endif
