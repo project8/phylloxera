@@ -3,11 +3,13 @@
 #################
 
 set( headers
+DatasetCollector.hh
 RootFileInterface.hh
 )
 
 set( sources
-RootFileInterface.cxx    
+DatasetCollector.cxx  
+RootFileInterface.cxx
 )
 
 ###########

@@ -5,8 +5,9 @@ namespace Phylloxera
 {
 class DatasetCollector
 {
-    DatasetCollector();
-    ClassDef(PdfFactory, 1)
+  public:
+    DatasetCollector(){};
+    // ClassDef(DatasetCollector, 1)
 };
 }
 
