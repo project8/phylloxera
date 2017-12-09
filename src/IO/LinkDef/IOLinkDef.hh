@@ -9,6 +9,7 @@
 
 #pragma link C++ namespace Phylloxera;
 
+#pragma link C++ class Phylloxera::Dataset + ;
 #pragma link C++ class Phylloxera::DatasetCollector + ;
 #pragma link C++ class Phylloxera::RootFileInterface + ;
 
