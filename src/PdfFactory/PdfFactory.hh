@@ -29,18 +29,13 @@ class PdfFactory
         Gaussian
     };
     PdfFactory(){};
-    PdfFactory(const char *name = "") : fName(name) { LINFO(pdffactory, "Hello you! My name is " << name); };
-    void testFunc() { std::cout << "test" << std::endl; }
-    // PdfFactory(const char *, const char *);
-    // PdfFactory(const char *name, const char *title) { std::cout << "Hello you!" << std::endl; };
-    // PdfFactory(const PdfFactory &other, const char *name) { std::cout << "Hello you!" << std::endl; };
-    // virtual PdfFactory *clone(const char *newname) const { return new PdfFactory(*this, newname); }
+    PdfFactory(const char *name) : fName(name) { LINFO(pdffactory, "Hello you! My name is " << name); };
     inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
     template <class PdfClass>
-    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *);
+    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
 
   protected:
     const char *fName;
@@ -79,17 +74,15 @@ template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
                                                                int numberBinsCache);
 
 template <class PdfClass>
-RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *backgroundFraction)
+RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *NSignalEvents, RooRealVar *NBkgdEvents)
 {
-    // RooRealVar *signalFraction = new RooRealVar("sigfrac", "fraction of signal", 1.);
-    // RooRealVar *coefBackground = new RooRealVar("coefBackground", "background coef", .);
     RooUniform *bkg = new RooUniform("bkg", "background p.d.f.", *variable);
-    // we set the signal fraction to one such as it will be easier to calculate the background fraction
-    return new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*backgroundFraction));
+    return new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
 };
 template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooRealVar *variable,
                                                            RooGaussian *pdf,
-                                                           RooRealVar *backgroundFraction);
+                                                           RooRealVar *NSignalEvents,
+                                                           RooRealVar *NBkgdEvents);
 }
 #endif
