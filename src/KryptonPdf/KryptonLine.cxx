@@ -9,6 +9,8 @@
 #include <math.h>
 #include "TMath.h"
 
+ClassImp(Phylloxera::KryptonLine);
+
 namespace Phylloxera
 {
 

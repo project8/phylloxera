@@ -14,7 +14,7 @@
 #include <math.h>
 #include "TMath.h"
 
-//ClassImp(SimpleTritiumSpectrum);
+ClassImp(Phylloxera::SimpleTritiumSpectrum);
 
 namespace Phylloxera
 {

@@ -8,6 +8,8 @@
 #include "Riostream.h"
 #include "RooFit.h"
 
+ClassImp(Phylloxera::AsymmetricKryptonLine);
+
 namespace Phylloxera
 {
 
