@@ -1,9 +1,15 @@
 #ifndef DATASET_HH
 #define DATASET_HH
 
+#include <iostream>
+#include "TTree.h"
+
 #include "param.hh"
+#include "logger.hh"
 
 #include "CROOTData.hh"
+
+LOGGER(dataset, "Phylloxera::Dataset");
 
 namespace Phylloxera
 {
@@ -11,11 +17,14 @@ class Dataset
 {
 
 public:
-  Dataset(){};
+  Dataset(std::string);
+
+  bool AppendData(Katydid::TMultiTrackEventData);
 
 protected:
+  std::string fName;
   scarab::param_node fDatasetConfig;
-  Katydid::TMultiTrackEventData fMultiTrackEventData;
+  TTree *fMultiTrackEventDataTree;
 
   // ClassDef(Dataset, 1)
 };
