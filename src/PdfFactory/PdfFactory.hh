@@ -8,34 +8,17 @@
 #include "RooGaussian.h"
 #include "RooRealVar.h"
 #include "RooFFTConvPdf.h"
+#include "RooAddPdf.h"
+
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
+#include "RooChebychev.h"
+#include "RooUniform.h"
 
 LOGGER(pdffactory, "PdfFactory");
 
 namespace Phylloxera
 {
-class MyClass
-{
-  public:
-    MyClass(int value = 0)
-    {
-        m_value = value;
-    }
-
-    void SetValue(int value)
-    {
-        m_value = value;
-    }
-
-    int GetValue()
-    {
-        return m_value;
-    }
-
-  private:
-    int m_value;
-};
 class PdfFactory
 {
   public:
@@ -45,19 +28,14 @@ class PdfFactory
         Lorentzian,
         Gaussian
     };
-    PdfFactory(const char *name = "") : fName(name) { std::cout << "Hello you! My name is " << name << std::endl; };
-    void testFunc() { std::cout << "test" << std::endl; }
-    // PdfFactory(const char *, const char *);
-    // PdfFactory(const char *name, const char *title) { std::cout << "Hello you!" << std::endl; };
-    // PdfFactory(const PdfFactory &other, const char *name) { std::cout << "Hello you!" << std::endl; };
-    // virtual PdfFactory *clone(const char *newname) const { return new PdfFactory(*this, newname); }
+    PdfFactory(){};
+    PdfFactory(const char *name) : fName(name) { LINFO(pdffactory, "Hello you! My name is " << name); };
     inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
-    PdfClass createPdf(PdfClass);
-
-    template <class PdfClass>
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
+    template <class PdfClass>
+    RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
 
   protected:
     const char *fName;
@@ -65,17 +43,9 @@ class PdfFactory
 };
 
 template <class PdfClass>
-PdfClass PdfFactory::createPdf(PdfClass object)
-{
-    return PdfClass(object, "test");
-};
-
-template <class PdfClass>
 RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, RooRealVar *variable, PdfClass *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache)
 {
     variable->setBins(numberBinsCache, "cache");
-
-    // RooRealVar *smearingCenter = new RooRealVar("mean", "mean", 0.);
 
     RooBreitWigner *tCauchy = new RooBreitWigner("tCauchy", "Cauchy", *variable, *smearingCenter, *smearingVar);
     RooGaussian *tGaussian = new RooGaussian("tGaussian", "Gaussian", *variable, *smearingCenter, *smearingVar);
@@ -84,18 +54,35 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        // LDEBUG(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        // LDEBUG(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        LINFO(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
     return 0;
 };
 
-template RooGaussian PdfFactory::createPdf<RooGaussian>(RooGaussian);
-template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name, SmearingType type, RooRealVar *variable, RooGaussian *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache);
+template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
+                                                               SmearingType type,
+                                                               RooRealVar *variable,
+                                                               RooGaussian *pdf,
+                                                               RooRealVar *smearingCenter,
+                                                               RooRealVar *smearingVar,
+                                                               int numberBinsCache);
+
+template <class PdfClass>
+RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *NSignalEvents, RooRealVar *NBkgdEvents)
+{
+    RooUniform *bkg = new RooUniform("bkg", "background p.d.f.", *variable);
+    return new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
+};
+template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
+                                                           RooRealVar *variable,
+                                                           RooGaussian *pdf,
+                                                           RooRealVar *NSignalEvents,
+                                                           RooRealVar *NBkgdEvents);
 }
 #endif

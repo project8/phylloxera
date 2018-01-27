@@ -6,12 +6,18 @@ cmake_minimum_required (VERSION 3.1)
 #########
 
 cmake_policy( SET CMP0048 NEW ) # version in project()
-project( Phylloxera VERSION 1.0.0 ) 
+project( Phylloxera VERSION 1.1.0 ) 
 
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/scarab/cmake)
 
 include( PackageBuilder )
 pbuilder_prepare_project()
+
+########################
+# options #
+########################
+
+option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TRUE )
 
 ########################
 # dependencies #
@@ -22,7 +28,6 @@ pbuilder_prepare_project()
 ########
 
 pbuilder_add_submodule( Scarab Scarab/library )
-
 
 ######
 # ROOT
@@ -58,7 +63,6 @@ message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 include_directories (BEFORE 
     ${PROJECT_SOURCE_DIR}/src/PdfFactory
     ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/IO
     ${PROJECT_SOURCE_DIR}/src/TritiumPdf
     ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
@@ -66,18 +70,20 @@ include_directories (BEFORE
 )
 add_subdirectory (src/PdfFactory)
 add_subdirectory (src/ToolBox)
-add_subdirectory (src/IO)
 add_subdirectory (src/TritiumPdf)
 add_subdirectory (src/KryptonPdf)
 add_subdirectory (src/TritiumSpectrum)
-add_subdirectory (src/exe)
+IF (Phylloxera_ENABLE_EXECUTABLES)
+    add_subdirectory (src/exe)
+ENDIF(Phylloxera_ENABLE_EXECUTABLES)
 
 #######################
 # installation config #
 #######################
 
+IF (Phylloxera_ADD_PHYLLOXERA_PY)
+    pbuilder_install_files (. ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py "")
+ENDIF(Phylloxera_ADD_PHYLLOXERA_PY)
+
 pbuilder_install_config_files()
 pbuilder_variables_for_parent()
-
-message ( STATUS "Installing ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py")
-file(COPY ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py DESTINATION .)

@@ -3,14 +3,17 @@
 #################
 
 set (KRYPTONPDF_HEADERFILES
+AsymmetricKryptonLine.hh
 KryptonLine.hh
 )
 
 set (KRYPTONPDF_SOURCEFILES
+AsymmetricKryptonLine.cxx
 KryptonLine.cxx 
 )
 
 set (KRYPTONPDF_DICT_HEADERFILES
+AsymmetricKryptonLine.hh
 KryptonLine.hh
 )
 
@@ -25,7 +28,7 @@ set (KRYPTONPDF_DICT_PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict_rdict.pc
 
 
 ROOT_GENERATE_DICTIONARY (KryptonPdfDict ${KRYPTONPDF_DICT_HEADERFILES} LINKDEF ${KRYPTONPDF_LINKDEF_HEADERFILE})
-pbuilder_install_files (KryptonPdf ${KRYPTONPDF_DICT_PCMFILE} "")
+pbuilder_install_files (${LIB_INSTALL_DIR} ${KRYPTONPDF_DICT_PCMFILE} "")
 
 add_library (KryptonPdf ${KRYPTONPDF_SOURCEFILES} ${KRYPTONPDF_DICT_OUTFILE})
 target_link_libraries (KryptonPdf ${ROOT_LIBRARIES})
