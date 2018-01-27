@@ -74,7 +74,6 @@ for afile in os.listdir(path):
 
 logger.debug("Include headers")
 gInterpreter.AddIncludePath("{}".format(os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera/Scarab")))
-gInterpreter.AddIncludePath("{}".format(os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera/Cicada")))
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "include/Phylloxera")
 for afile in os.listdir(path):

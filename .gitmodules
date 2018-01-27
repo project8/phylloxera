@@ -2,7 +2,3 @@
 	path = scarab
 	url = https://guiguem@github.com/project8/scarab.git
 	branch = develop
-[submodule "cicada"]
-	path = cicada
-	url = https://guiguem@github.com/project8/cicada.git
-	branch = develop

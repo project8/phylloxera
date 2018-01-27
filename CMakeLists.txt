@@ -23,12 +23,11 @@ option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TR
 # dependencies #
 ########################
 
-###################
-# Scarab and Cicada
-###################
+########
+# Scarab
+########
 
 pbuilder_add_submodule( Scarab Scarab/library )
-pbuilder_add_submodule( Cicada Cicada )
 
 ######
 # ROOT
@@ -64,7 +63,6 @@ message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 include_directories (BEFORE 
     ${PROJECT_SOURCE_DIR}/src/PdfFactory
     ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/IO
     ${PROJECT_SOURCE_DIR}/src/TritiumPdf
     ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
@@ -72,7 +70,6 @@ include_directories (BEFORE
 )
 add_subdirectory (src/PdfFactory)
 add_subdirectory (src/ToolBox)
-add_subdirectory (src/IO)
 add_subdirectory (src/TritiumPdf)
 add_subdirectory (src/KryptonPdf)
 add_subdirectory (src/TritiumSpectrum)
