@@ -48,5 +48,4 @@ data.plotOn(KEframe)
 KrLine.plotOn(KEframe)
 KEframe.Draw()
 c1.SaveAs("dataPlotFit.pdf")
-
 ```
