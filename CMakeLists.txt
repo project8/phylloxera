@@ -27,7 +27,7 @@ option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TR
 # Scarab
 ########
 
-pbuilder_add_submodule( Scarab Scarab/library )
+# pbuilder_add_submodule( Scarab Scarab/library )
 
 ######
 # ROOT

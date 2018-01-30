@@ -3,8 +3,8 @@
 #include <iostream>
 #include <vector>
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 
 inline double getMinFromVector(std::vector<double> vectX)
 // Extract the min value of a vector
@@ -29,4 +29,4 @@ inline double getMaxFromVector(std::vector<double> vectX)
     }
     return vectX[iMax];
 }
-}
+// }

@@ -3,7 +3,7 @@
 
 // #include "TObject.h"
 #include <iostream>
-#include "logger.hh"
+// #include "logger.hh"
 
 #include "RooGaussian.h"
 #include "RooRealVar.h"
@@ -15,10 +15,10 @@
 #include "RooChebychev.h"
 #include "RooUniform.h"
 
-LOGGER(pdffactory, "PdfFactory");
+// LOGGER(pdffactory, "PdfFactory");
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 class PdfFactory
 {
   public:
@@ -29,7 +29,7 @@ class PdfFactory
         Gaussian
     };
     PdfFactory(){};
-    PdfFactory(const char *name) : fName(name) { LINFO(pdffactory, "Hello you! My name is " << name); };
+    PdfFactory(const char *name) : fName(name){};
     inline virtual ~PdfFactory() = default;
 
     template <class PdfClass>
@@ -54,11 +54,11 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     {
     case Cauchy:
     case Lorentzian:
-        LINFO(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
+        // LINFO(pdffactory, "Creating " << name << ": Cauchy convoluted with " << pdf->GetName());
         delete tGaussian;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tCauchy);
     case Gaussian:
-        LINFO(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
+        // LINFO(pdffactory, "Creating " << name << ": Normal convoluted with " << pdf->GetName());
         delete tCauchy;
         return new RooFFTConvPdf(name, name, *variable, *pdf, *tGaussian);
     };
@@ -84,5 +84,5 @@ template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooGaussian *pdf,
                                                            RooRealVar *NSignalEvents,
                                                            RooRealVar *NBkgdEvents);
-}
+// }
 #endif

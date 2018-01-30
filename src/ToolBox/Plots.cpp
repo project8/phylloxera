@@ -5,8 +5,8 @@
 #include "VectorTools.cpp"
 #include "TritiumSpectrum.cpp"
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 
 TH1F getKuriePlot(std::vector<double> vData)
 {
@@ -25,4 +25,4 @@ TH1F getKuriePlot(std::vector<double> vData)
     }
     return kurieHisto;
 }
-}
+// }

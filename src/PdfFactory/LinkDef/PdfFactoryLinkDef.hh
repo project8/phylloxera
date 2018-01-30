@@ -7,13 +7,13 @@
 #pragma link C++ nestedclasses;
 #pragma link C++ nestedtypedefs;
 
-#pragma link C++ namespace Phylloxera;
+// #pragma link C++ namespace Phylloxera;
 
-#pragma link C++ class Phylloxera::PdfFactory + ;
+#pragma link C++ class PdfFactory + ;
 
-#pragma link C++ function Phylloxera::PdfFactory::GetSmearedPdf;
-#pragma link C++ function Phylloxera::PdfFactory::AddBackground;
+#pragma link C++ function PdfFactory::GetSmearedPdf;
+#pragma link C++ function PdfFactory::AddBackground;
 
-#pragma link C++ enum Phylloxera::PdfFactory::SmearingType;
+#pragma link C++ enum PdfFactory::SmearingType;
 
 #endif
