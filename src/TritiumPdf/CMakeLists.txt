@@ -52,7 +52,7 @@ ROOT_GENERATE_DICTIONARY (TritiumPdfDict ${dict_headers} LINKDEF ${linkdef_heade
 pbuilder_install_files (${LIB_INSTALL_DIR} ${dict_pcmfile} "")
 
 add_library (TritiumPdf ${sources} ${dict_outfile})
-target_link_libraries (TritiumPdf ${ROOT_LIBRARIES} Scarab_Phylloxera)
+target_link_libraries (TritiumPdf ${ROOT_LIBRARIES})
 
 pbuilder_install_headers (${headers})
 pbuilder_install_libraries (TritiumPdf)

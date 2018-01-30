@@ -6,8 +6,8 @@
 #include "RooAbsPdf.h"
 #include "RooBreitWigner.h"
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 class KryptonLine : public RooAbsPdf
 {
 public:
@@ -30,5 +30,5 @@ protected:
 public:
   ClassDef(KryptonLine, 1)
 };
-}
+// }
 #endif

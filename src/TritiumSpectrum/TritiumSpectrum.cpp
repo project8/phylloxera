@@ -3,8 +3,8 @@
 
 #include "Constant.cpp"
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 
 double DiracFermiFunction(double E, double Z, double m)
 {
@@ -38,5 +38,5 @@ Double_t TritiumSpectrumShape(Double_t *x, Double_t *par)
         return 0;
     return par[3] * TritiumSpectrumShape(xx, par[0], par[1], par[2]);
 }
-}
+// }
 #endif

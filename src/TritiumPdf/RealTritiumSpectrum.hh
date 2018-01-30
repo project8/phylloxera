@@ -11,8 +11,8 @@
 #include "RooAbsReal.h"
 #include "RooAbsPdf.h"
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 class RealTritiumSpectrum : public RooAbsPdf
 {
 public:
@@ -34,6 +34,6 @@ protected:
 
   ClassDef(RealTritiumSpectrum, 1) // Your description goes here...
 };
-}
+// }
 
 #endif

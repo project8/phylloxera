@@ -7,10 +7,10 @@
 
 #include "TritiumSpectrum.cpp"
 
-ClassImp(Phylloxera::RealTritiumSpectrum);
+ClassImp(RealTritiumSpectrum);
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 RealTritiumSpectrum::RealTritiumSpectrum(const char *name, const char *title,
                                          RooAbsReal &_KE,
                                          RooAbsReal &_Q,
@@ -35,6 +35,5 @@ Double_t RealTritiumSpectrum::evaluate() const
         return 0.;
     }
     return TritiumSpectrumShape(KE, Q, 1, mbeta);
-}
 }
 // }
