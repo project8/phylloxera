@@ -46,7 +46,6 @@ template <class PdfClass>
 RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, RooRealVar *variable, PdfClass *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache)
 {
     variable->setBins(numberBinsCache, "cache");
-
     RooBreitWigner *tCauchy = new RooBreitWigner("tCauchy", "Cauchy", *variable, *smearingCenter, *smearingVar);
     RooGaussian *tGaussian = new RooGaussian("tGaussian", "Gaussian", *variable, *smearingCenter, *smearingVar);
 
@@ -77,7 +76,7 @@ template <class PdfClass>
 RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *NSignalEvents, RooRealVar *NBkgdEvents)
 {
     RooUniform *bkg = new RooUniform("bkg", "background p.d.f.", *variable);
-    return new RooAddPdf("model", "model", RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
+    return new RooAddPdf(name, name, RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
 };
 template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooRealVar *variable,
