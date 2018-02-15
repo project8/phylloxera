@@ -17,7 +17,7 @@ pbuilder_prepare_project()
 # options #
 ########################
 
-option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TRUE )
+option( Phylloxera_ADD_PHYLLOXERA_PY "Add PhylloxeraPy file in the build" TRUE )
 
 ########################
 # dependencies #
