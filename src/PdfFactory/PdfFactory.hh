@@ -1,7 +1,7 @@
 #ifndef PDFFACTORY
 #define PDFFACTORY
 
-// #include "TObject.h"
+#include "TObject.h"
 #include <iostream>
 // #include "logger.hh"
 
@@ -19,7 +19,7 @@
 
 // namespace Phylloxera
 // {
-class PdfFactory
+class PdfFactory: public TObject
 {
   public:
     enum SmearingType
