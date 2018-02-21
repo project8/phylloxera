@@ -59,6 +59,10 @@ def print_logo():
 
 
 def loadLibraries(silence=False):
+    import ROOT
+    if hasattr(ROOT,"PdfFactory"):
+        logger.debug("Libraries already loaded...")
+        return
     if silence:
         print_logo()        
         from ROOT import RooMsgService
@@ -67,7 +71,7 @@ def loadLibraries(silence=False):
         logger.setLevel(logging.INFO)
     else:
         print_image()
-        print_logo
+        print_logo()
 
     from ROOT import gSystem, gInterpreter
     logger.debug("Import libraries...")
