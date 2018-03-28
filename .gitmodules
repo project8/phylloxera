@@ -1,0 +1,3 @@
+[submodule "Scarab"]
+	path = Scarab
+	url = https://guiguem@github.com/project8/scarab.git
