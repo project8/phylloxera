@@ -8,9 +8,9 @@ cmake_minimum_required (VERSION 3.1)
 cmake_policy( SET CMP0048 NEW ) # version in project()
 project( Phylloxera VERSION 1.1.1 ) 
 
-list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/scarab/cmake)
-
+list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Scarab/cmake)
 include( PackageBuilder )
+
 pbuilder_prepare_project()
 
 ########################
@@ -27,7 +27,7 @@ option( Phylloxera_ADD_PHYLLOXERA_PY "Add PhylloxeraPy file in the build" TRUE )
 # Scarab
 ########
 
-# pbuilder_add_submodule( Scarab Scarab/library )
+pbuilder_add_submodule( Scarab Scarab/library )
 
 ######
 # ROOT

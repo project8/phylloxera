@@ -1,0 +1,26 @@
+// the configured options and settings for Phylloxera
+
+// The name of the package
+#define PACKAGE "${${PROJECT_NAME}_PACKAGE_NAME}"
+#define PACKAGE_NAME "${${PROJECT_NAME}_PACKAGE_NAME}"
+
+// The name of the package, plus the version and GIT revision number
+#define PACKAGE_STRING "${${PROJECT_NAME}_PACKAGE_STRING}"
+
+// The major component of the version number
+#define VERSION_MAJOR ${${PROJECT_NAME}_VERSION_MAJOR}
+
+// The minor component of the version number
+#define VERSION_MINOR ${${PROJECT_NAME}_VERSION_MINOR}
+
+// The revision number
+#define REVISION ${${PROJECT_NAME}_REVISION}
+
+// The complete version number
+#define VERSION "${${PROJECT_NAME}_VERSION}"
+
+// The version number plus the GIT revision number
+#define FULL_VERSION "${${PROJECT_NAME}_FULL_VERSION}"
+
+// The full path of the install location
+#define INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}"
