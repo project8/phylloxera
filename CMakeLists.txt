@@ -66,14 +66,16 @@ include_directories (BEFORE
     ${PROJECT_SOURCE_DIR}/src/TritiumPdf
     ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
-    ${PROJECT_SOURCE_DIR}/src/exe
 )
+# Since we don't use these libraries from the outside, there is no need to build a .dylib from these
+# add_subdirectory (src/ToolBox)
+# add_subdirectory (src/TritiumSpectrum)
+
 add_subdirectory (src/PdfFactory)
-add_subdirectory (src/ToolBox)
 add_subdirectory (src/TritiumPdf)
 add_subdirectory (src/KryptonPdf)
-add_subdirectory (src/TritiumSpectrum)
 IF (Phylloxera_ENABLE_EXECUTABLES)
+    include_directories(${PROJECT_SOURCE_DIR}/src/exe)
     add_subdirectory (src/exe)
 ENDIF(Phylloxera_ENABLE_EXECUTABLES)
 

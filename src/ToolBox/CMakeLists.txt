@@ -2,7 +2,11 @@
 # ToolBox #
 ###########
 
+set ( headers
+)
+
 set( sources
+    # Constant.cpp
     Conversion.cpp
     Plots.cpp
     RooFitTools.cpp
@@ -13,8 +17,7 @@ set( sources
 # library #
 ###########
 
-pbuilder_library( ToolBox sources "" )
+pbuilder_library( ToolBox sources headers "")
 target_link_libraries (ToolBox ${ROOT_LIBRARIES})
 pbuilder_install_libraries(ToolBox)
 pbuilder_install_headers( ${headers} )
-
