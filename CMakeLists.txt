@@ -18,6 +18,7 @@ pbuilder_prepare_project()
 ########################
 
 option( Phylloxera_ADD_PHYLLOXERA_PY "Add PhylloxeraPy file in the build" TRUE )
+option( Phylloxera_ENABLE_EXECUTABLES "Build executables" TRUE )
 
 ########################
 # dependencies #
