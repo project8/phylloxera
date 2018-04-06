@@ -6,18 +6,19 @@ cmake_minimum_required (VERSION 3.1)
 #########
 
 cmake_policy( SET CMP0048 NEW ) # version in project()
-project( Phylloxera VERSION 1.1.1 ) 
+project( Phylloxera VERSION 1.2.0 ) 
 
-list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/scarab/cmake)
-
+list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Scarab/cmake)
 include( PackageBuilder )
+
 pbuilder_prepare_project()
 
 ########################
 # options #
 ########################
 
-option( Phylloxera_ADD_PHYLLOXERA_PY "Flag to add PhylloxeraPy file in build" TRUE )
+option( Phylloxera_ADD_PHYLLOXERA_PY "Add PhylloxeraPy file in the build" TRUE )
+option( Phylloxera_ENABLE_EXECUTABLES "Build executables" TRUE )
 
 ########################
 # dependencies #
@@ -66,14 +67,16 @@ include_directories (BEFORE
     ${PROJECT_SOURCE_DIR}/src/TritiumPdf
     ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
-    ${PROJECT_SOURCE_DIR}/src/exe
 )
+# Since we don't use these libraries from the outside, there is no need to build a .dylib from these
+# add_subdirectory (src/ToolBox)
+# add_subdirectory (src/TritiumSpectrum)
+
 add_subdirectory (src/PdfFactory)
-add_subdirectory (src/ToolBox)
 add_subdirectory (src/TritiumPdf)
 add_subdirectory (src/KryptonPdf)
-add_subdirectory (src/TritiumSpectrum)
 IF (Phylloxera_ENABLE_EXECUTABLES)
+    include_directories(${PROJECT_SOURCE_DIR}/src/exe)
     add_subdirectory (src/exe)
 ENDIF(Phylloxera_ENABLE_EXECUTABLES)
 

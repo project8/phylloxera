@@ -9,8 +9,8 @@ A library of RooFit classes and functions for analyzing Krypton and Tritium Spec
 - Clone Github repository and update submodule:
 ```bash
 git clone "https://github.com/project8/phylloxera"
-$ cd phylloxera
-$ git submodule update --init --recursive
+cd phylloxera
+git submodule update --init --recursive
 ```
 - Install: 
 ```bash
@@ -29,20 +29,20 @@ export PYTHONPATH=/path/to/phylloxera/build:${PYTHONPATH}
 In your Python script, you will need to import PhylloxeraPy using
 ```python
 import PhylloxeraPy
+PhylloxeraPy.loadLibraries(True)
 ```
 From there, you can access the classes defined in Phylloxera via ROOT. Ex: 
 ```python
-import ROOT
-from ROOT.Phylloxera import KryptonLine
-KE = ROOT.RooRealVar("KE", "KE", 30490, 30470, 30500)
-meanKrLine = ROOT.RooRealVar("meanKrLine", "meanKrLine", 30490, 30470, 30500)
-widthKrLine = ROOT.RooRealVar("width", "width", 1, 0.01, 10)
+from ROOT import KryptonLine, RooRealVar, RooArgSet, TCanvas
+KE = RooRealVar("KE", "KE", 30490, 30470, 30500)
+meanKrLine = RooRealVar("meanKrLine", "meanKrLine", 30490, 30470, 30500)
+widthKrLine = RooRealVar("width", "width", 1, 0.01, 10)
 KrLine = KryptonLine("KrLine", "KrLine", KE, meanKrLine, widthKrLine)
 
-data = KrLine.generate(ROOT.RooArgSet(KE), 1000)
+data = KrLine.generate(RooArgSet(KE), 1000)
 KrLine.fitTo(data)
 
-c1 = ROOT.TCanvas("c1", "c1", 600, 400)
+c1 = TCanvas("c1", "c1", 600, 400)
 KEframe = KE.frame()
 data.plotOn(KEframe)
 KrLine.plotOn(KEframe)

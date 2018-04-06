@@ -20,7 +20,7 @@
 #include "Plots.cpp"
 #include "RooFitTools.cpp"
 
-#include "logger.hh"
+// #include "logger.hh"
 
 namespace Phylloxera
 {
@@ -34,7 +34,7 @@ const double Emax = Q + 1000;
 const double KE_conv_min = Emin - 4;
 const double KE_conv_max = Emax + 4;
 
-LOGGER(kp, "KuriePlot");
+// LOGGER(kp, "KuriePlot");
 
 void spectrum()
 {
@@ -90,10 +90,10 @@ void spectrum()
     double rescaled_e0 = e0 * TMath::Sqrt(chi2 / ndf);
     double rescaled_e1 = e1 * TMath::Sqrt(chi2 / ndf);
 
-    LINFO(kp, "Fit results:\n"
-                  << "chi2 / ndf = " << chi2 << "/" << ndf << "\n"
-                  << "par[0]= " << p0 << "+-" << rescaled_e0 << "\n"
-                  << "par[1]= " << p1 << "+-" << rescaled_e1);
+    // LINFO(kp, "Fit results:\n"
+    //               << "chi2 / ndf = " << chi2 << "/" << ndf << "\n"
+    //               << "par[0]= " << p0 << "+-" << rescaled_e0 << "\n"
+    //               << "par[1]= " << p1 << "+-" << rescaled_e1);
 
     // Second round fit
     for (int iBin = 0; iBin < kurieHisto.GetNbinsX(); ++iBin)
@@ -111,12 +111,12 @@ void spectrum()
     double rescaled_e0_2 = e0_2 * TMath::Sqrt(chi2 / ndf);
     double rescaled_e1_2 = e1_2 * TMath::Sqrt(chi2 / ndf);
 
-    LINFO(kp, "Fit results:\n"
-                  << "Fit results after second round:"
-                  << "\n"
-                  << "chi2 / ndf = " << chi2_2 << "/" << ndf_2 << "\n"
-                  << "par[0]= " << p0_2 << "+-" << rescaled_e0_2 << "\n"
-                  << "par[1]= " << p1_2 << "+-" << rescaled_e1_2);
+    // LINFO(kp, "Fit results:\n"
+    //               << "Fit results after second round:"
+    //               << "\n"
+    //               << "chi2 / ndf = " << chi2_2 << "/" << ndf_2 << "\n"
+    //               << "par[0]= " << p0_2 << "+-" << rescaled_e0_2 << "\n"
+    //               << "par[1]= " << p1_2 << "+-" << rescaled_e1_2);
 
     // Plotting
     TCanvas *c = new TCanvas("rf103_interprfuncs", "rf103_interprfuncs", 600, 400);

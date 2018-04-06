@@ -9,10 +9,10 @@
 #include <math.h>
 #include "TMath.h"
 
-ClassImp(Phylloxera::KryptonLine);
+ClassImp(KryptonLine);
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 
 KryptonLine::KryptonLine(const char *name, const char *title,
                          RooAbsReal &_KE, RooAbsReal &_mean, RooAbsReal &_HWHM) : RooAbsPdf(name, title),
@@ -59,4 +59,4 @@ Double_t KryptonLine::analyticalIntegral(Int_t code, const char *rangeName) cons
     assert(0);
     return 0;
 }
-}
+// }

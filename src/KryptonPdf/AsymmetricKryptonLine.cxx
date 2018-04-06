@@ -8,10 +8,10 @@
 #include "Riostream.h"
 #include "RooFit.h"
 
-ClassImp(Phylloxera::AsymmetricKryptonLine);
+ClassImp(AsymmetricKryptonLine);
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 
 AsymmetricKryptonLine::AsymmetricKryptonLine(const char *name, const char *title,
                                              RooAbsReal &_KE, RooAbsReal &_mean, RooAbsReal &_HWHM, RooAbsReal &_alpha) : RooAbsPdf(name, title),
@@ -35,4 +35,4 @@ Double_t AsymmetricKryptonLine::evaluate() const
     Double_t arg = KE - mean;
     return 1. / (TMath::Pi() * HWHM) / TMath::Power(1. + TMath::Power(arg / HWHM, 2), (1. - alpha) / 2.) * (TMath::Cos(TMath::Pi() * alpha / 2. + (1. - alpha) * TMath::ATan(arg / HWHM)));
 }
-}
+// }
