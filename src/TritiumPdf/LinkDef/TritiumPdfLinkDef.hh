@@ -7,9 +7,9 @@
 #pragma link C++ nestedclasses;
 #pragma link C++ nestedtypedefs;
 
-#pragma link C++ namespace Phylloxera;
+// #pragma link C++ namespace Phylloxera;
 
-#pragma link C++ class Phylloxera::RealTritiumSpectrum+;
-#pragma link C++ class Phylloxera::SimpleTritiumSpectrum+;
+#pragma link C++ class RealTritiumSpectrum + ;
+#pragma link C++ class SimpleTritiumSpectrum + ;
 
 #endif

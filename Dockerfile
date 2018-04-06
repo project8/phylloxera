@@ -1,17 +1,10 @@
-FROM guiguem/root-docker:latest
+FROM guiguem/root-docker:python3
 
 MAINTAINER Mathieu Guigue "Mathieu.Guigue@pnnl.gov"
 
-ADD . /phylloxera
+COPY . /phylloxera
 
-RUN /bin/bash -c "pip install pip --upgrade &&\
-    source /setup.sh &&\
-    pip install colorlog &&\
-    mkdir -p /phylloxera/build &&\
-    cd /phylloxera/build &&\
-    git submodule update --init --recursive &&\
-    cmake .. &&\
-    make -j3 &&\
-    make -j3 install"
+RUN chmod +x /phylloxera/install_docker.sh &&\
+    /phylloxera/install_docker.sh
 
-ADD setup_phylloxera.sh setup_phylloxera.sh
+CMD ['source /setup.sh']

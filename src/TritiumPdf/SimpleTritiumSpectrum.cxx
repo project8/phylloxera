@@ -14,10 +14,10 @@
 #include <math.h>
 #include "TMath.h"
 
-ClassImp(Phylloxera::SimpleTritiumSpectrum);
+ClassImp(SimpleTritiumSpectrum);
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 SimpleTritiumSpectrum::SimpleTritiumSpectrum(const char *name, const char *title,
                                              RooAbsReal &_KE,
                                              RooAbsReal &_Q,
@@ -43,4 +43,4 @@ Double_t SimpleTritiumSpectrum::evaluate() const
     }
     return (Q - KE) * TMath::Sqrt(TMath::Power(Q - KE, 2) - TMath::Power(mbeta, 2));
 }
-}
+// }

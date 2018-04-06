@@ -11,8 +11,8 @@
 #include "RooRealProxy.h"
 #include "RooAbsReal.h"
 
-namespace Phylloxera
-{
+// namespace Phylloxera
+// {
 class SimpleTritiumSpectrum : public RooAbsPdf
 {
 public:
@@ -32,8 +32,8 @@ protected:
 
   Double_t evaluate() const;
 
-   ClassDef(SimpleTritiumSpectrum,1) // Your description goes here...
+  ClassDef(SimpleTritiumSpectrum, 1) // Your description goes here...
 };
-}
+// }
 
 #endif
