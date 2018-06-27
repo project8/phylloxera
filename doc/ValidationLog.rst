@@ -24,16 +24,25 @@ Version: 1.2.0
 Release Date: April 5, 2018
 '''''''''''''''''''''''''''''''
 
-New Features:
-'''''''''''''
-
-
 Fixes:
 ''''''
 
 * Removing Phylloxera namespace
 * Cleaner PhylloxeraPy interface: prevent libraries from loading twice
 * Cleaner installation: no build of the internal libraries (ToolBox, TritiumSpectrum)
+
+  
+Version: 1.2.1
+~~~~~~~~~~~~~~
+
+Release Date: Wed. June 27th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Reducing PhylloxeraPy verbosity
+* Update Scarab to v1.6.1
 
   
 Template
