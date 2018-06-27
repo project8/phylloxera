@@ -42,6 +42,7 @@ Fixes:
 ''''''
 
 * Reducing PhylloxeraPy verbosity
+* Update Scarab to v1.6.1
 
   
 Template
