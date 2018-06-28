@@ -17,6 +17,30 @@ Guidelines
 
 Log
 ---
+  
+Version: 1.2.2
+~~~~~~~~~~~~~~
+
+Release Date: Wed. June 27th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Update Scarab to v1.6.2
+
+  
+Version: 1.2.1
+~~~~~~~~~~~~~~
+
+Release Date: Wed. June 27th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Reducing PhylloxeraPy verbosity
+* Update Scarab to v1.6.1
 
 Version: 1.2.0
 ~~~~~~~~~~~~~~
@@ -31,18 +55,7 @@ Fixes:
 * Cleaner PhylloxeraPy interface: prevent libraries from loading twice
 * Cleaner installation: no build of the internal libraries (ToolBox, TritiumSpectrum)
 
-  
-Version: 1.2.1
-~~~~~~~~~~~~~~
 
-Release Date: Wed. June 27th, 2018
-''''''''''''''''''''''''''''''''''
-
-Fixes:
-''''''
-
-* Reducing PhylloxeraPy verbosity
-* Update Scarab to v1.6.1
 
   
 Template
