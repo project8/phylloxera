@@ -17,20 +17,21 @@ EnergyLossPdf::EnergyLossPdf(const char *name, const char *title,
                              RooAbsReal &_x,
                              RooAbsReal &_mean1, RooAbsReal &_mean2,
                              RooAbsReal &_width1, RooAbsReal &_width2,
-                             RooAbsReal &_amplitude1, RooAbsReal &_amplitude2) : RooAbsPdf(name, title),
-                                                                                 x("x", "x", this, _x),
-                                                                                 mean1("mean1", "Mean1", this, _mean1),
-                                                                                 mean2("mean2", "Mean2", this, _mean2),
-                                                                                 width1("width1", "Width1", this, _width1),
-                                                                                 width2("width2", "Width2", this, _width2),
-                                                                                 amplitude1("amplitude1", "Amplitude1", this, _amplitude1),
-                                                                                 amplitude2("amplitude2", "Amplitude2", this, _amplitude2),
-                                                                                 epsilonc("epsilonc", "Epsilon cut", this, _epsilonc)
+                             RooAbsReal &_amplitude1, RooAbsReal &_amplitude2,
+                             RooAbsReal &_epsilonc) : RooAbsPdf(name, title),
+                                                      x("x", "x", this, _x),
+                                                      mean1("mean1", "Mean1", this, _mean1),
+                                                      mean2("mean2", "Mean2", this, _mean2),
+                                                      width1("width1", "Width1", this, _width1),
+                                                      width2("width2", "Width2", this, _width2),
+                                                      amplitude1("amplitude1", "Amplitude1", this, _amplitude1),
+                                                      amplitude2("amplitude2", "Amplitude2", this, _amplitude2),
+                                                      epsilonc("epsilonc", "Epsilon cut", this, _epsilonc)
 {
 }
 
 EnergyLossPdf::EnergyLossPdf(const EnergyLossPdf &other, const char *name) : RooAbsPdf(other, name),
-                                                                             KE("KE", this, other.KE),
+                                                                             x("x", this, other.x),
                                                                              mean1("mean1", this, other.mean1),
                                                                              mean2("mean2", this, other.mean2),
                                                                              width1("width1", this, other.width1),
@@ -45,7 +46,7 @@ Double_t EnergyLossPdf::evaluate() const
 {
     if (x < epsilonc)
     {
-        return amplitude1 / TMath::Gaus(x, mean1, sigma1);
+        return amplitude1 / TMath::Gaus(x, mean1, width1);
     }
     else
     {
