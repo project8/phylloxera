@@ -4,16 +4,19 @@
 
 set (KRYPTONPDF_HEADERFILES
 AsymmetricKryptonLine.hh
+EnergyLossPdf.hh
 KryptonLine.hh
 )
 
 set (KRYPTONPDF_SOURCEFILES
 AsymmetricKryptonLine.cxx
+EnergyLossPdf.cxx
 KryptonLine.cxx 
 )
 
 set (KRYPTONPDF_DICT_HEADERFILES
 AsymmetricKryptonLine.hh
+EnergyLossPdf.hh
 KryptonLine.hh
 )
 
