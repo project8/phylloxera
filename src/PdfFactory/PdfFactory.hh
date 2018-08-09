@@ -6,6 +6,7 @@
 // #include "logger.hh"
 
 #include "RooGaussian.h"
+#include "RooPolynomial.h"
 #include "RooRealVar.h"
 #include "RooFFTConvPdf.h"
 #include "RooAddPdf.h"
@@ -36,6 +37,8 @@ class PdfFactory: public TObject
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
     template <class PdfClass>
     RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
+    template <class PdfClass>
+    RooProdPdf *MultiplyPolynomialEfficiency(const char *, RooRealVar *, RooArgList*, RooRealVar*, Int_t lowestOrder,PdfClass *);
 
   protected:
     const char *fName;
@@ -83,5 +86,17 @@ template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooGaussian *pdf,
                                                            RooRealVar *NSignalEvents,
                                                            RooRealVar *NBkgdEvents);
+
+template <class PdfClass>
+RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency(const char *name, RooRealVar *variable, RooArgList *pars, Int_t lowestOrder, PdfClass *pdf)
+{
+    RooPolynomial *poly = new RooPolynomial("poly", "polynomial p.d.f.", *variable, *pars, *lowestOrder);
+    return new RooProdPdf(name, name, RooArgList(*pdf, *bkg));
+};
+template RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency<RooGaussian>(const char *name,
+                                                                           RooRealVar *variable,
+                                                                           RooArgList *pars,
+                                                                           Int_t lowestOrder,
+                                                                           RooGaussian *pdf);
 // }
 #endif
