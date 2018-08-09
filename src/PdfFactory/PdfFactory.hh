@@ -38,7 +38,7 @@ class PdfFactory: public TObject
     template <class PdfClass>
     RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
     template <class PdfClass>
-    RooProdPdf *MultiplyPolynomialEfficiency(const char *, RooRealVar *, RooArgList*, RooRealVar*, Int_t lowestOrder,PdfClass *);
+    RooProdPdf *MultiplyPolynomialEfficiency(const char *, RooRealVar *, RooArgList *, Int_t *  , PdfClass *);
 
   protected:
     const char *fName;
@@ -88,7 +88,7 @@ template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooRealVar *NBkgdEvents);
 
 template <class PdfClass>
-RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency(const char *name, RooRealVar *variable, RooArgList *pars, Int_t lowestOrder, PdfClass *pdf)
+RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency(const char *name, RooRealVar *variable, RooArgList *pars, Int_t *lowestOrder, PdfClass *pdf)
 {
     RooPolynomial *poly = new RooPolynomial("poly", "polynomial p.d.f.", *variable, *pars, *lowestOrder);
     return new RooProdPdf(name, name, RooArgList(*pdf, *bkg));
@@ -96,7 +96,7 @@ RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency(const char *name, RooRealVa
 template RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency<RooGaussian>(const char *name,
                                                                            RooRealVar *variable,
                                                                            RooArgList *pars,
-                                                                           Int_t lowestOrder,
+                                                                           Int_t *lowestOrder,
                                                                            RooGaussian *pdf);
 // }
 #endif
