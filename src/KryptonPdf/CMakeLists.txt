@@ -36,9 +36,5 @@ set (KRYPTONPDF_DICT_PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict_rdict.pc
 ROOT_GENERATE_DICTIONARY (KryptonPdfDict ${KRYPTONPDF_DICT_HEADERFILES} LINKDEF ${KRYPTONPDF_LINKDEF_HEADERFILE})
 pbuilder_install_files (${LIB_INSTALL_DIR} ${KRYPTONPDF_DICT_PCMFILE})
 
-# add_library (KryptonPdf ${KRYPTONPDF_SOURCEFILES} ${KRYPTONPDF_DICT_OUTFILE})
-# target_link_libraries (KryptonPdf ${ROOT_LIBRARIES})
-
 pbuilder_library( KryptonPdf KRYPTONPDF_SOURCEFILES "" )
 pbuilder_install_headers (${KRYPTONPDF_HEADERFILES})
-# pbuilder_install_libraries (KryptonPdf)

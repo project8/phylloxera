@@ -18,7 +18,7 @@ SimpleTritiumSpectrum.hh
 )
 
 set (linkdef_header LinkDef/TritiumPdfLinkDef.hh)
-set (dict_outfile ${CMAKE_CURRENT_BINARY_DIR}/TritiumPdfDict.cxx)
+set (sources ${sources} ${CMAKE_CURRENT_BINARY_DIR}/TritiumPdfDict.cxx)
 set (dict_pcmfile ${CMAKE_CURRENT_BINARY_DIR}/TritiumPdfDict_rdict.pcm)
 
 
@@ -28,10 +28,10 @@ set (dict_pcmfile ${CMAKE_CURRENT_BINARY_DIR}/TritiumPdfDict_rdict.pcm)
 
 
 ROOT_GENERATE_DICTIONARY (TritiumPdfDict ${dict_headers} LINKDEF ${linkdef_header})
-pbuilder_install_files (${LIB_INSTALL_DIR} ${dict_pcmfile} "")
+pbuilder_install_files (${LIB_INSTALL_DIR} ${dict_pcmfile})
 
-add_library (TritiumPdf ${sources} ${dict_outfile})
-target_link_libraries (TritiumPdf ${ROOT_LIBRARIES})
+# add_library (TritiumPdf ${sources})
+# target_link_libraries (TritiumPdf ${ROOT_LIBRARIES})
 
+pbuilder_library (TritiumPdf sources "")
 pbuilder_install_headers (${headers})
-pbuilder_install_libraries (TritiumPdf)
