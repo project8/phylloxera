@@ -1,7 +1,16 @@
+set (APPS_HEADERFILES
 
-# KuriePlot
-add_executable(KuriePlot KuriePlot.cxx)
-target_link_libraries(KuriePlot TritiumPdf )
-add_custom_command(TARGET KuriePlot
-                   POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:KuriePlot> ${PROJECT_SOURCE_DIR}/bin/KuriePlot)
+)
+
+set( LIB_DEPENDENCIES
+KryptonPdf
+PdfFactory
+TritiumPdf
+)
+
+set( PROGRAMS
+KuriePlot
+)
+
+pbuilder_executables( PROGRAMS LIB_DEPENDENCIES )
+pbuilder_install_headers (${APPS_HEADERFILES})
