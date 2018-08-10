@@ -10,6 +10,7 @@
 #include "RooRealVar.h"
 #include "RooFFTConvPdf.h"
 #include "RooAddPdf.h"
+#include "RooProdPdf.h"
 
 #include "RooBreitWigner.h"
 #include "RooGaussian.h"
@@ -91,7 +92,7 @@ template <class PdfClass>
 RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency(const char *name, RooRealVar *variable, RooArgList *pars, Int_t *lowestOrder, PdfClass *pdf)
 {
     RooPolynomial *poly = new RooPolynomial("poly", "polynomial p.d.f.", *variable, *pars, *lowestOrder);
-    return new RooProdPdf(name, name, RooArgList(*pdf, *bkg));
+    return new RooProdPdf(name, name, RooArgList(*pdf, *poly));
 };
 template RooProdPdf *PdfFactory::MultiplyPolynomialEfficiency<RooGaussian>(const char *name,
                                                                            RooRealVar *variable,
