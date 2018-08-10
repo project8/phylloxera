@@ -6,6 +6,7 @@
 #include "RooAbsPdf.h"
 #include "RooFFTConvPdf.h"
 
+#include "EnergyLossPdf.hh"
 // namespace Phylloxera
 // {
 class MultiEnergyLossesPdf : public RooAbsPdf
@@ -17,7 +18,6 @@ public:
                 RooAbsReal &_mean1, RooAbsReal &_mean2,
                 RooAbsReal &_width1, RooAbsReal &_width2,
                 RooAbsReal &_amplitude1, RooAbsReal &_amplitude2,
-                RooAbsReal &_epsilonc,
                 double proba,
                 int maxNumberOfLosses = 3);
   MultiEnergyLossesPdf(const MultiEnergyLossesPdf &other, const char *name = 0);
@@ -35,12 +35,12 @@ protected:
   RooRealProxy fWidth2;
   RooRealProxy fAmplitude1;
   RooRealProxy fAmplitude2;
-  RooRealProxy fEpsilonCut;
 
   bool fIsPdfInitiated;
   int fMaxNumberOfLosses;
   double fEnergyLossesProba;
   RooFFTConvPdf fPdf;
+  EnergyLossPdf fEnergyLossPdf;
 
 public:
   ClassDef(MultiEnergyLossesPdf, 1)

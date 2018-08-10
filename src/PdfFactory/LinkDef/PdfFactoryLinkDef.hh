@@ -13,6 +13,8 @@
 
 #pragma link C++ function PdfFactory::GetSmearedPdf;
 #pragma link C++ function PdfFactory::AddBackground;
+#pragma link C++ function PdfFactory::GetSelfConvPdf;
+#pragma link C++ function PdfFactory::GetMultiSelfConvPdf;
 
 #pragma link C++ enum PdfFactory::SmearingType;
 

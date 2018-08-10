@@ -16,8 +16,7 @@ public:
                 RooAbsReal &_x, 
                 RooAbsReal &_mean1, RooAbsReal &_mean2, 
                 RooAbsReal &_width1, RooAbsReal &_width2, 
-                RooAbsReal &_amplitude1, RooAbsReal &_amplitude2, 
-                RooAbsReal &_epsilonc);
+                RooAbsReal &_amplitude1, RooAbsReal &_amplitude2);
   EnergyLossPdf(const EnergyLossPdf &other, const char *name = 0);
   virtual TObject *clone(const char *newname) const { return new EnergyLossPdf(*this, newname); }
   inline virtual ~EnergyLossPdf(){};
@@ -32,7 +31,6 @@ protected:
   RooRealProxy fWidth2;
   RooRealProxy fAmplitude1;
   RooRealProxy fAmplitude2;
-  RooRealProxy fEpsilonCut;
 
 public:
   ClassDef(EnergyLossPdf, 1)

@@ -19,7 +19,7 @@
 
 // namespace Phylloxera
 // {
-class PdfFactory: public TObject
+class PdfFactory : public TObject
 {
   public:
     enum SmearingType
@@ -38,6 +38,8 @@ class PdfFactory: public TObject
     RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
     template <class PdfClass>
     RooFFTConvPdf *GetSelfConvolPdf(const char *, RooRealVar *, PdfClass *, int = 10000);
+    template <class PdfClass>
+    RooFFTConvPdf *GetMultiSelfConvolPdf(const char *, RooRealVar *, PdfClass *, int, int = 10000);
 
   protected:
     const char *fName;
@@ -92,11 +94,34 @@ template <class PdfClass>
 RooFFTConvPdf *PdfFactory::GetSelfConvolPdf(const char *name, RooRealVar *variable, PdfClass *pdf, int numberBinsCache)
 {
     variable->setBins(numberBinsCache, "cache");
-    return new RooFFTConvPdf(name, name, *variable, *pdf, *pdf);
+
+    PdfClass *clonePdf = new PdfClass(*pdf, "clone");
+    return new RooFFTConvPdf(name, name, *variable, *pdf, *clonePdf);
 };
 template RooFFTConvPdf *PdfFactory::GetSelfConvolPdf<RooGaussian>(const char *name,
-                                                              RooRealVar *variable,
-                                                              RooGaussian *pdf,
-                                                              int GetSelfConvolPdf);
+                                                                  RooRealVar *variable,
+                                                                  RooGaussian *pdf,
+                                                                  int GetSelfConvolPdf);
+
+// Multi Self convolution
+template <class PdfClass>
+RooFFTConvPdf *PdfFactory::GetMultiSelfConvolPdf(const char *name, RooRealVar *variable, PdfClass *pdf, int NConvolutions, int numberBinsCache)
+{
+    RooFFTConvPdf **vTempPdf = new RooFFTConvPdf *[NConvolutions];
+    vTempPdf[0] = GetSelfConvolPdf<PdfClass>("tempPdf", variable, pdf, numberBinsCache);
+    vTempPdf[0]->Print();
+    for (int iConv = 1; iConv < NConvolutions; iConv++)
+    {
+        vTempPdf[iConv] = new RooFFTConvPdf(name, name, *variable, *vTempPdf[iConv - 1], *pdf);
+        vTempPdf[iConv]->Print();
+    }
+    return vTempPdf[NConvolutions - 1];
+};
+template RooFFTConvPdf *PdfFactory::GetMultiSelfConvolPdf<RooGaussian>(const char *name,
+                                                                       RooRealVar *variable,
+                                                                       RooGaussian *pdf,
+                                                                       int GetSelfConvolPdf,
+                                                                       int NConvolutions);
+
 // }
 #endif
