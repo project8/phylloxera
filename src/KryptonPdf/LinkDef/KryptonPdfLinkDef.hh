@@ -12,5 +12,6 @@
 #pragma link C++ class KryptonLine + ;
 #pragma link C++ class AsymmetricKryptonLine + ;
 #pragma link C++ class EnergyLossPdf + ;
+#pragma link C++ class MultiEnergyLossesPdf + ;
 
 #endif
