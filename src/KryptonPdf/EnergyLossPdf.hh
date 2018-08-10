@@ -25,14 +25,14 @@ public:
   Double_t evaluate() const;
 
 protected:
-  RooRealProxy x;
-  RooRealProxy mean1;
-  RooRealProxy mean2;
-  RooRealProxy width1;
-  RooRealProxy width2;
-  RooRealProxy amplitude1;
-  RooRealProxy amplitude2;
-  RooRealProxy epsilonc;
+  RooRealProxy fX;
+  RooRealProxy fMean1;
+  RooRealProxy fMean2;
+  RooRealProxy fWidth1;
+  RooRealProxy fWidth2;
+  RooRealProxy fAmplitude1;
+  RooRealProxy fAmplitude2;
+  RooRealProxy fEpsilonCut;
 
 public:
   ClassDef(EnergyLossPdf, 1)

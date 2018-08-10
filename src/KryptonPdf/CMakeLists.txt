@@ -6,22 +6,25 @@ set (KRYPTONPDF_HEADERFILES
 AsymmetricKryptonLine.hh
 EnergyLossPdf.hh
 KryptonLine.hh
+MultiEnergyLossesPdf.hh
 )
 
 set (KRYPTONPDF_SOURCEFILES
 AsymmetricKryptonLine.cxx
 EnergyLossPdf.cxx
-KryptonLine.cxx 
+KryptonLine.cxx
+MultiEnergyLossesPdf.cxx
 )
 
 set (KRYPTONPDF_DICT_HEADERFILES
 AsymmetricKryptonLine.hh
 EnergyLossPdf.hh
 KryptonLine.hh
+MultiEnergyLossesPdf.hh
 )
 
 set (KRYPTONPDF_LINKDEF_HEADERFILE LinkDef/KryptonPdfLinkDef.hh)
-set (KRYPTONPDF_DICT_OUTFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict.cxx)
+set (KRYPTONPDF_SOURCEFILES ${KRYPTONPDF_SOURCEFILES} ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict.cxx)
 set (KRYPTONPDF_DICT_PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict_rdict.pcm)
 
 
@@ -31,10 +34,11 @@ set (KRYPTONPDF_DICT_PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict_rdict.pc
 
 
 ROOT_GENERATE_DICTIONARY (KryptonPdfDict ${KRYPTONPDF_DICT_HEADERFILES} LINKDEF ${KRYPTONPDF_LINKDEF_HEADERFILE})
-pbuilder_install_files (${LIB_INSTALL_DIR} ${KRYPTONPDF_DICT_PCMFILE} "")
+pbuilder_install_files (${LIB_INSTALL_DIR} ${KRYPTONPDF_DICT_PCMFILE})
 
-add_library (KryptonPdf ${KRYPTONPDF_SOURCEFILES} ${KRYPTONPDF_DICT_OUTFILE})
-target_link_libraries (KryptonPdf ${ROOT_LIBRARIES})
+# add_library (KryptonPdf ${KRYPTONPDF_SOURCEFILES} ${KRYPTONPDF_DICT_OUTFILE})
+# target_link_libraries (KryptonPdf ${ROOT_LIBRARIES})
 
+pbuilder_library( KryptonPdf KRYPTONPDF_SOURCEFILES "" )
 pbuilder_install_headers (${KRYPTONPDF_HEADERFILES})
-pbuilder_install_libraries (KryptonPdf)
+# pbuilder_install_libraries (KryptonPdf)

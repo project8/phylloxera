@@ -36,12 +36,15 @@ class PdfFactory: public TObject
     RooFFTConvPdf *GetSmearedPdf(const char *, SmearingType, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *, int = 10000);
     template <class PdfClass>
     RooAddPdf *AddBackground(const char *, RooRealVar *, PdfClass *, RooRealVar *, RooRealVar *);
+    template <class PdfClass>
+    RooFFTConvPdf *GetSelfConvolPdf(const char *, RooRealVar *, PdfClass *, int = 10000);
 
   protected:
     const char *fName;
     ClassDef(PdfFactory, 1)
 };
 
+// Smearing Pdf
 template <class PdfClass>
 RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, RooRealVar *variable, PdfClass *pdf, RooRealVar *smearingCenter, RooRealVar *smearingVar, int numberBinsCache)
 {
@@ -63,15 +66,15 @@ RooFFTConvPdf *PdfFactory::GetSmearedPdf(const char *name, SmearingType type, Ro
     };
     return 0;
 };
-
 template RooFFTConvPdf *PdfFactory::GetSmearedPdf<RooGaussian>(const char *name,
                                                                SmearingType type,
                                                                RooRealVar *variable,
                                                                RooGaussian *pdf,
                                                                RooRealVar *smearingCenter,
                                                                RooRealVar *smearingVar,
-                                                               int numberBinsCache);
+                                                               int GetSelfConvolPdf);
 
+// Background addition
 template <class PdfClass>
 RooAddPdf *PdfFactory::AddBackground(const char *name, RooRealVar *variable, PdfClass *pdf, RooRealVar *NSignalEvents, RooRealVar *NBkgdEvents)
 {
@@ -83,5 +86,17 @@ template RooAddPdf *PdfFactory::AddBackground<RooGaussian>(const char *name,
                                                            RooGaussian *pdf,
                                                            RooRealVar *NSignalEvents,
                                                            RooRealVar *NBkgdEvents);
+
+// Self convolution
+template <class PdfClass>
+RooFFTConvPdf *PdfFactory::GetSelfConvolPdf(const char *name, RooRealVar *variable, PdfClass *pdf, int numberBinsCache)
+{
+    variable->setBins(numberBinsCache, "cache");
+    return new RooFFTConvPdf(name, name, *variable, *pdf, *pdf);
+};
+template RooFFTConvPdf *PdfFactory::GetSelfConvolPdf<RooGaussian>(const char *name,
+                                                              RooRealVar *variable,
+                                                              RooGaussian *pdf,
+                                                              int GetSelfConvolPdf);
 // }
 #endif
