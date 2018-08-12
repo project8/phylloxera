@@ -46,6 +46,15 @@ EnergyLossPdf::EnergyLossPdf(const EnergyLossPdf &other, const char *name) : Roo
 
 Double_t EnergyLossPdf::evaluate() const
 {
+    if (fX<=fMean1) {
+        return fAmplitude1 * TMath::Gaus(fX, fMean1, fWidth1 / 2.);
+    }
+    if (fX>=fMean2) {
+        return fAmplitude2 * TMath::CauchyDist(fX, fMean2, fWidth2/2.);
+    }
+    if (fX>=100) {
+        return 2.4 / (fX * fX);
+    }
     // Root defines everything in terms of stdDev and not widths.
     return TMath::Max(fAmplitude1 * TMath::Gaus(fX, fMean1, fWidth1/2.),fAmplitude2 * TMath::CauchyDist(fX, fMean2, fWidth2/2.));
 }
