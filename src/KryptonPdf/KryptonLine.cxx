@@ -32,7 +32,7 @@ KryptonLine::KryptonLine(const KryptonLine &other, const char *name) : RooAbsPdf
 Double_t KryptonLine::evaluate() const
 {
     Double_t arg = KE - mean;
-    return 1. / (HWHM * HWHM + arg * arg);
+    return 1. / (TMath::Pi() * HWHM) / (1. + TMath::Power(arg / HWHM, 2));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ Double_t KryptonLine::analyticalIntegral(Int_t code, const char *rangeName) cons
     {
     case 1:
     {
-        return (atan((KE.max(rangeName) - mean) / HWHM) - atan((KE.min(rangeName) - mean) / HWHM));
+        return 1. / TMath::Pi() * (atan((KE.max(rangeName) - mean) / HWHM) - atan((KE.min(rangeName) - mean) / HWHM));
     }
     }
 

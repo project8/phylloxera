@@ -150,23 +150,33 @@ RooFFTConvPdf *PdfFactory::GetMultiConvolPdf(const char *name, RooRealVar *varia
     PdfClass2 **vPdf2 = new PdfClass2 *[NConvolutions];
     TString tmpName("tempPdf_");
     tmpName.Append(std::to_string(0).c_str());
-    vPdf2[0] = new PdfClass2(*pdf2,"clone");
-    vTempPdf[0] = new RooFFTConvPdf(tmpName.Data(), tmpName.Data(), *variable, *pdf, *vPdf2[0]);
+    vPdf2[0] = new PdfClass2(*pdf2, "clone_0");
+    if (NConvolutions == 1)
+    {
+        vTempPdf[0] = new RooFFTConvPdf(name, name, *variable, *pdf, *vPdf2[0]);
+    }
+    else
+    {
+        vTempPdf[0] = new RooFFTConvPdf(tmpName, tmpName, *variable, *pdf, *vPdf2[0]);
+    }
     // vTempPdf[0] = GetSelfConvolPdf<PdfClass>("tempPdf", variable, pdf, numberBinsCache);
     vTempPdf[0]->Print();
     for (int iConv = 1; iConv < NConvolutions; iConv++)
     {
-        std::cout << "HERHEHEHRERHE" << iConv << std::endl;
-        tmpName = TString("tempPdf_");
-        tmpName.Append(std::to_string(iConv).c_str());
         if (iConv == NConvolutions - 1)
         {
-            vPdf2[iConv] = new PdfClass2(*pdf2,"test");
+            tmpName = TString("clone_");
+            tmpName.Append(std::to_string(iConv).c_str());
+            vPdf2[iConv] = new PdfClass2(*pdf2, tmpName);
             vTempPdf[iConv] = new RooFFTConvPdf(name, name, *variable, *vTempPdf[iConv - 1], *vPdf2[iConv]);
         }
         else
         {
-            vPdf2[iConv] = new PdfClass2(*pdf2,"test");
+            tmpName = TString("clone_");
+            tmpName.Append(std::to_string(iConv).c_str());
+            vPdf2[iConv] = new PdfClass2(*pdf2, "");
+            tmpName = TString("tempPdf_");
+            tmpName.Append(std::to_string(iConv).c_str());
             vTempPdf[iConv] = new RooFFTConvPdf(tmpName, tmpName, *variable, *vTempPdf[iConv - 1], *vPdf2[iConv]);
         }
         vTempPdf[iConv]->Print();

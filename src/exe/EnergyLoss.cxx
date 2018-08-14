@@ -14,6 +14,8 @@
 #include "RooUniform.h"
 #include "RooDataHist.h"
 #include "RooGenericPdf.h"
+#include "RooFitResult.h"
+
 
 #include "RealTritiumSpectrum.hh"
 #include "AsymmetricKryptonLine.hh"
@@ -37,11 +39,11 @@ int main()
 {
 
     double KrMean = 178000;
-    double proba = 0.2;
+    double proba = 0.3;
 
     // Using parameters from Aseev, Eur. Phys. J. D 10, 39–52 (2000)
 
-    RooRealVar KE("KE", "KE", KrMean+0, KrMean+200);
+    RooRealVar KE("KE", "KE", KrMean + 0, KrMean + 100);
     KE.setRange("KryptonLine", 16900, 17100);
     KE.setRange("EnergyLoss", 0, 50);
     RooRealVar mean1("mean1", "mean1", 12.6);
@@ -51,14 +53,14 @@ int main()
     RooRealVar amplitude1("amplitude1", "amplitude1", 10);
     RooRealVar amplitude2("amplitude2", "amplitude2", 45);
 
-    RooRealVar meanKr("meanKr", "meanKr", 20+KrMean);
+    RooRealVar meanKr("meanKr", "meanKr", 20 + KrMean, KrMean, KrMean + 30);
     RooRealVar HWHMKr("widthKr", "widthKr", 2);
 
     RooRealVar One("one", "one", 1);
     RooRealVar Proba("proba", "proba", proba);
-    RooRealVar ProbaSquare("proba2", "proba2", TMath::Power(proba,2));
-    RooRealVar ProbaThree("proba3", "proba3", TMath::Power(proba,3));
-    RooRealVar ProbaFour("proba4", "proba4", TMath::Power(proba,4));
+    RooRealVar ProbaSquare("proba2", "proba2", TMath::Power(proba, 2));
+    RooRealVar ProbaThree("proba3", "proba3", TMath::Power(proba, 3));
+    RooRealVar ProbaFour("proba4", "proba4", TMath::Power(proba, 4));
 
     PdfFactory *factory = new PdfFactory("myFactory");
 
@@ -66,38 +68,20 @@ int main()
     RooFFTConvPdf *OneConvPdf = factory->GetSelfConvolPdf<EnergyLossPdf>("OneConvPdf", &KE, energyLossPdf);
     RooFFTConvPdf *TwoConvPdf = factory->GetMultiSelfConvolPdf<EnergyLossPdf>("TwoConvPdf", &KE, energyLossPdf, 2);
     RooFFTConvPdf *FourConvPdf = factory->GetMultiSelfConvolPdf<EnergyLossPdf>("FourConvPdf", &KE, energyLossPdf, 4);
-    // RooAddPdf *addPdfs = new RooAddPdf("addPdfs", "addPdfs", RooArgList(*energyLossPdf, *oneConvPdf, *FourConvPdf), RooArgList(One, Proba, ProbaSquare));
 
-    // RooBreitWigner *KrLineshape = new RooBreitWigner("KrLineShape", "Krypton lineshape", KE, meanKr, HWHMKr);
     KryptonLine *KrLineshape = new KryptonLine("KrLineShape", "Krypton lineshape", KE, meanKr, HWHMKr);
-    // RooFFTConvPdf *distortedKrLineshape = new RooFFTConvPdf("distKrLineShape", "distKrLineshape", KE, *KrLineshape, *oneConvPdf);
-    RooFFTConvPdf *distortedKrLineshape1 = factory->GetMultiConvolPdf("distKrLineshape", &KE, KrLineshape, energyLossPdf, 1);
-    RooFFTConvPdf *distortedKrLineshape2 = factory->GetMultiConvolPdf("distortedKrLineshape2", &KE, KrLineshape, energyLossPdf, 2);
-    RooFFTConvPdf *distortedKrLineshape3 = factory->GetMultiConvolPdf("distortedKrLineshape3", &KE, KrLineshape, energyLossPdf, 3);
-    RooFFTConvPdf *distortedKrLineshape4 = factory->GetMultiConvolPdf("distortedKrLineshape4", &KE, KrLineshape, energyLossPdf, 4);
+    RooFFTConvPdf *distortedKrLineshape1 = factory->GetMultiConvolPdf("distKrLineshape", &KE, KrLineshape, energyLossPdf, 1, 1000000);
+    RooFFTConvPdf *distortedKrLineshape2 = factory->GetMultiConvolPdf("distortedKrLineshape2", &KE, KrLineshape, energyLossPdf, 2, 1000000);
+    RooFFTConvPdf *distortedKrLineshape3 = factory->GetMultiConvolPdf("distortedKrLineshape3", &KE, KrLineshape, energyLossPdf, 3, 1000000);
+    RooFFTConvPdf *distortedKrLineshape4 = factory->GetMultiConvolPdf("distortedKrLineshape4", &KE, KrLineshape, energyLossPdf, 4, 1000000);
 
     RooAddPdf *addPdfs = new RooAddPdf("addPdfs", "addPdfs", RooArgList(*KrLineshape, *distortedKrLineshape1, *distortedKrLineshape2, *distortedKrLineshape3, *distortedKrLineshape4), RooArgList(One, Proba, ProbaSquare, ProbaThree, ProbaFour));
+    RooDataSet *data = addPdfs->generate(KE, 10000);
+    RooFitResult* r = addPdfs->fitTo(*data,RooFit::Save());
+    addPdfs->Print("v");
+    r->Print();
 
-    std::cout << "-------------> Krypton line = " << KrLineshape->createIntegral(KE)->getVal() << std::endl ;
-    std::cout << "-------------> Krypton line = " << distortedKrLineshape1->createIntegral(KE)->getVal() << std::endl ;
-    std::cout << "-------------> Krypton line = " << distortedKrLineshape2->createIntegral(KE)->getVal() << std::endl ;
-    std::cout << "-------------> Krypton line = " << distortedKrLineshape3->createIntegral(KE)->getVal() << std::endl ;
-    std::cout << "-------------> Krypton line = " << distortedKrLineshape4->createIntegral(KE)->getVal() << std::endl ;
-    std::cout << "-------------> Krypton line = " << addPdfs->createIntegral(KE)->getVal() << std::endl ;
-
-    // RooAbsReal* gx_cdf = distortedKrLineshape1->createCdf(KE) ;
-  
-  // Plot cdf of gx versus x
-    // auto can3 = new TCanvas("can2", "CDF", 600, 400);
-
-    // RooPlot* frame3 = KE.frame(RooFit::Title("c.d.f of Gaussian p.d.f")) ;
-    // gx_cdf->plotOn(frame3) ;
-    // frame3->Draw();
-    // can3->SaveAs("CDF.pdf");
-
-    // RooDataSet *data = addPdfs->generate(KE, 5000);
-
-    RooPlot *frame = KE.frame(0,100);
+    RooPlot *frame = KE.frame(0, 100);
     energyLossPdf->plotOn(frame);
     OneConvPdf->plotOn(frame);
     TwoConvPdf->plotOn(frame);
@@ -110,8 +94,8 @@ int main()
     can->Draw();
     can->SaveAs("EnergyLossPdfs.pdf");
 
-    RooPlot *frame2 = KE.frame(0+KrMean, 100+KrMean);
-    // data->plotOn(frame2);
+    RooPlot *frame2 = KE.frame(0 + KrMean, 100 + KrMean);
+    data->plotOn(frame2);
     addPdfs->plotOn(frame2);
     KrLineshape->plotOn(frame2, RooFit::LineColor(kRed));
     distortedKrLineshape1->plotOn(frame2, RooFit::LineColor(kRed));
@@ -125,8 +109,6 @@ int main()
     can2->Draw();
     can2->SaveAs("KryponeLineshapes.pdf");
 
-
-    // addPdfs->fitTo(*data,RooFit::Range("KryptonLine"));
     // addPdfs->plotOn(frame2,RooFit::Range("KryptonLine"));
     // // Draw data on canvas
 
