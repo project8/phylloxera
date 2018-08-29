@@ -95,7 +95,7 @@ RooAddPdf *PdfFactory::AddBackground(const char *name, BackgroundShape shape, Ro
 	case Uniform:
 		return new RooAddPdf(name, name, RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
 	case NonUniform:
-		RooEffProd *bkg1 = PdfFactory::MultiplyPolynom<RooUniform>("p", "bkg1", pars, bkg);
+		RooEffProd *bkg1 = PdfFactory::MultiplyPolynom<RooUniform>("pb", "bkg1", pars, bkg);
 		return new RooAddPdf(name, name, RooArgList(*pdf, *bkg1), RooArgList(*NSignalEvents, *NBkgdEvents));
 	};
 	return 0;
@@ -113,11 +113,11 @@ template <class PdfClass>
 RooEffProd *PdfFactory::MultiplyPolynom(const char *poly_name, const char *name, RooArgList *pars, PdfClass *pdf)
 {
 	//RooPolynomial *poly = new RooPolynomial("poly", "polynomial p.d.f.", *variable, *pars, lowestOrder);
-	RooFormulaVar poly(poly_name, "@1+@2*TMath::Power(@0,1)+@3*TMath::Power(@0,2)+@4*TMath::Power(@0,3)+@5*TMath::Power(@0,4)", *pars);
-	poly.Print();
-	RooEffProd *multipliedSpectrum = new RooEffProd(name, name, *pdf, poly);
-	multipliedSpectrum->Print();
-    return multipliedSpectrum;
+	RooFormulaVar *poly = new RooFormulaVar(poly_name, "@1+@2*TMath::Power(@0,1)+@3*TMath::Power(@0,2)+@4*TMath::Power(@0,3)+@5*TMath::Power(@0,4)", *pars);
+	poly->Print();
+	//RooEffProd *multipliedSpectrum = new RooEffProd(name, name, *pdf, poly);
+	//multipliedSpectrum->Print();
+    return new RooEffProd(name, name, *pdf, *poly);
 };
 template RooEffProd *PdfFactory::MultiplyPolynom<RooAbsPdf>(const char *poly_name,
                                                             const char *name,
