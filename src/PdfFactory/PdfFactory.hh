@@ -6,6 +6,7 @@
 // #include "logger.hh"
 
 #include "RooGaussian.h"
+#include "RooPolynomial.h"
 #include "RooRealVar.h"
 #include "RooFFTConvPdf.h"
 #include "RooAddPdf.h"
@@ -34,7 +35,7 @@ class PdfFactory: public TObject
     enum BackgroundShape
 	{
     	Uniform,
-		NonUniform
+		Polynomial
 	};
     PdfFactory(){};
     PdfFactory(const char *name) : fName(name){};
@@ -94,9 +95,10 @@ RooAddPdf *PdfFactory::AddBackground(const char *name, BackgroundShape shape, Ro
 	{
 	case Uniform:
 		return new RooAddPdf(name, name, RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
-	case NonUniform:
-		RooEffProd *bkg1 = PdfFactory::MultiplyPolynom<RooUniform>("pb", "bkg1", pars, bkg);
-		return new RooAddPdf(name, name, RooArgList(*pdf, *bkg1), RooArgList(*NSignalEvents, *NBkgdEvents));
+	case Polynomial:
+		//RooEffProd *bkg1 = PdfFactory::MultiplyPolynom<RooUniform>("pb", "bkg1", pars, bkg);
+		RooPolynomial *bkg = new RooPolynomial("bkg", "background p.d.f.", *variable, *pars, 0);
+		return new RooAddPdf(name, name, RooArgList(*pdf, *bkg), RooArgList(*NSignalEvents, *NBkgdEvents));
 	};
 	return 0;
 
