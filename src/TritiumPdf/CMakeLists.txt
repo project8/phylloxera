@@ -3,11 +3,13 @@
 #################
 
 set (headers
+    DistortedTritiumSpectrum.hh
     RealTritiumSpectrum.hh
     SimpleTritiumSpectrum.hh
 )
 
 set (sources
+    DistortedTritiumSpectrum.cxx
     RealTritiumSpectrum.cxx    
     SimpleTritiumSpectrum.cxx   
 )
