@@ -18,6 +18,18 @@ Guidelines
 Log
 ---
   
+Version: 
+~~~~~~~~~~~~~~
+
+Release Date: 
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Issue with Package builder usage
+* Adding libraries (ToolBox and TritiumSpectrum)
+
 Version: 1.2.2
 ~~~~~~~~~~~~~~
 

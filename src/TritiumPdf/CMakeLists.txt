@@ -4,19 +4,16 @@
 
 set (headers
     RealTritiumSpectrum.hh
-    RealTritiumSpectrumNew.hh
     SimpleTritiumSpectrum.hh
 )
 
 set (sources
-    RealTritiumSpectrum.cxx    
-    RealTritiumSpectrumNew.cxx    
-    SimpleTritiumSpectrum.cxx   
+    RealTritiumSpectrum.cxx
+    SimpleTritiumSpectrum.cxx
 )
 
 set (dict_headers
 RealTritiumSpectrum.hh
-RealTritiumSpectrumNew.hh
 SimpleTritiumSpectrum.hh
 )
 
