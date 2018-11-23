@@ -34,11 +34,14 @@ pbuilder_add_submodule( Scarab Scarab/library )
 # ROOT
 ######
 
-list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
-find_package(ROOT REQUIRED COMPONENTS fftw3 MathCore RIO Hist Tree Net TreePlayer)
-#include(${ROOT_USE_FILE})
-include_directories(${CMAKE_SOURCE_DIR} ${ROOT_INCLUDE_DIRS})
-add_definitions(${ROOT_CXX_FLAGS})
+find_package (ROOT 6.00)
+if (ROOT_FOUND)
+    pbuilder_add_ext_libraries (${ROOT_LIBRARIES})
+    #message(STATUS "${ROOT_LIBRARIES}")
+else (ROOT_FOUND)
+    message(FATAL "Unable to find ROOT")
+endif (ROOT_FOUND)
+include_directories (${ROOT_INCLUDE_DIR})
 
 ######
 # FFTW
@@ -62,15 +65,15 @@ message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 
 # subdirectories
 include_directories (BEFORE 
+    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/PdfFactory
     ${PROJECT_SOURCE_DIR}/src/ToolBox
     ${PROJECT_SOURCE_DIR}/src/TritiumPdf
-    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
     ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
 )
 # Since we don't use these libraries from the outside, there is no need to build a .dylib from these
-# add_subdirectory (src/ToolBox)
-# add_subdirectory (src/TritiumSpectrum)
+add_subdirectory (src/ToolBox)
+add_subdirectory (src/TritiumSpectrum)
 
 add_subdirectory (src/PdfFactory)
 add_subdirectory (src/TritiumPdf)

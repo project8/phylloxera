@@ -25,11 +25,8 @@ set (dict_pcmfile ${CMAKE_CURRENT_BINARY_DIR}/PdfFactoryDict_rdict.pcm)
 
 
 ROOT_GENERATE_DICTIONARY (PdfFactoryDict ${dict_headers} LINKDEF ${linkdef_header})
-pbuilder_install_files (${LIB_INSTALL_DIR} ${dict_pcmfile} "")
+pbuilder_install_files (${LIB_INSTALL_DIR} ${dict_pcmfile} )
 
-# add_library (PdfFactory ${sources} ${dict_outfile})
-# target_link_libraries (PdfFactory ${ROOT_LIBRARIES})
-
-pbuilder_library ( PdfFactory sources "" )
+pbuilder_library ( PdfFactory sources ToolBox ${ROOT_LIBRARIES} )
 pbuilder_install_headers (${headers})
 
