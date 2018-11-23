@@ -5,7 +5,7 @@
 #include <math.h>
 #include "TMath.h"
 
-#include "TritiumSpectrum.cpp"
+#include "TritiumSpectrum.hh"
 
 ClassImp(DistortedTritiumSpectrum);
 

@@ -5,25 +5,23 @@
 set (headers
     DistortedTritiumSpectrum.hh
     RealTritiumSpectrum.hh
-    RealTritiumSpectrumNew.hh
     SimpleTritiumSpectrum.hh
 )
 
 set (sources
     DistortedTritiumSpectrum.cxx
     RealTritiumSpectrum.cxx    
-    RealTritiumSpectrumNew.cxx    
     SimpleTritiumSpectrum.cxx   
 )
 
 set (dict_headers
+DistortedTritiumSpectrum.hh
 RealTritiumSpectrum.hh
-RealTritiumSpectrumNew.hh
 SimpleTritiumSpectrum.hh
 )
 
 set (dep_libraries
-TritiumSpectrum
+    TritiumSpectrum
 )
 
 set (linkdef_header LinkDef/TritiumPdfLinkDef.hh)
