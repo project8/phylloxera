@@ -1,5 +1,5 @@
 #include "TMath.h"
-#include "Constant.cpp"
+#include "Constant.hh"
 
 // namespace Phylloxera
 // {
