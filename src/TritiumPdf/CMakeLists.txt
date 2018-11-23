@@ -10,8 +10,8 @@ set (headers
 
 set (sources
     DistortedTritiumSpectrum.cxx
-    RealTritiumSpectrum.cxx    
-    SimpleTritiumSpectrum.cxx   
+    RealTritiumSpectrum.cxx
+    SimpleTritiumSpectrum.cxx
 )
 
 set (dict_headers
