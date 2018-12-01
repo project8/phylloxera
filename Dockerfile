@@ -20,7 +20,6 @@ RUN mkdir -p $PHLLOXERA_BUILD_PREFIX &&\
 ########################
 FROM phylloxera_common as phylloxera_done
 
-
 # repeat the cmake command to get the change of install prefix to set correctly (a package_builder known issue)
 RUN source $PHLLOXERA_BUILD_PREFIX/setup.sh &&\
     mkdir /tmp_install &&\
