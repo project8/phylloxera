@@ -1,3 +1,7 @@
+# CMakeLists for Phylloxera
+# Author: M. Guigue
+# Date: Jan 15, 2018
+
 # Minimum cmake verison 3.1 required for the variable CMAKE_CXX_STANDARD
 cmake_minimum_required (VERSION 3.1)
 
@@ -60,36 +64,17 @@ include_directories (${FFTW_INCLUDE_DIR})
 message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 
 #############
-# TritiumSpectrum
+# Sources
 #############
 
-# subdirectories
-include_directories (BEFORE 
-    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
-    ${PROJECT_SOURCE_DIR}/src/PdfFactory
-    ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/TritiumPdf
-    ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
-)
-# Since we don't use these libraries from the outside, there is no need to build a .dylib from these
-add_subdirectory (src/ToolBox)
-add_subdirectory (src/TritiumSpectrum)
-
-add_subdirectory (src/PdfFactory)
-add_subdirectory (src/TritiumPdf)
-add_subdirectory (src/KryptonPdf)
-IF (Phylloxera_ENABLE_EXECUTABLES)
-    include_directories(${PROJECT_SOURCE_DIR}/src/exe)
-    add_subdirectory (src/exe)
-ENDIF(Phylloxera_ENABLE_EXECUTABLES)
+add_subdirectory (src)
 
 #######################
 # installation config #
 #######################
 
-IF (Phylloxera_ADD_PHYLLOXERA_PY)
-    pbuilder_install_files (. ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py "")
-ENDIF(Phylloxera_ADD_PHYLLOXERA_PY)
+configure_file( this_phylloxera.sh.in this_phylloxera.sh )
+pbuilder_install_files( ${BIN_INSTALL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/this_phylloxera.sh )
 
-pbuilder_install_config_files()
 pbuilder_variables_for_parent()
+
