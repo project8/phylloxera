@@ -35,8 +35,8 @@ option( Phylloxera_ENABLE_EXECUTABLES "Build executables" TRUE )
 set( Scarab_BUILD_CODEC_JSON OFF )
 set( Scarab_BUILD_CODEC_YAML OFF )
 set( Scarab_BUILD_AUTHENTICATION OFF )
-set( Scarab_BUILD_PARAM OFF CACHE BOOL )
-set( Scarab_ENABLE_EXECUTABLES OFF CACHE BOOL )
+set( Scarab_BUILD_PARAM OFF )
+set( Scarab_ENABLE_EXECUTABLES OFF )
 
 pbuilder_add_submodule( Scarab Scarab/library )
 
