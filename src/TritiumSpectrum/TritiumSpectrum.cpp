@@ -1,7 +1,6 @@
-#ifndef TRITIUMSPECTRUM
-#define TRITIUMSPECTRUM
+#include "TritiumSpectrum.hh"
 
-#include "Constant.cpp"
+#include "Constant.hh"
 
 // namespace Phylloxera
 // {
@@ -43,4 +42,3 @@ Double_t TritiumSpectrumShape(Double_t *x, Double_t *par)
     return par[3] * TritiumSpectrumShape(xx, par[0], par[1], par[2]);
 }
 // }
-#endif

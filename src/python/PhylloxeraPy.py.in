@@ -73,13 +73,24 @@ def loadLibraries(silence=False):
         print_image()
         print_logo()
 
-    from ROOT import gSystem, gInterpreter
+    from ROOT import gSystem
     logger.debug("Import libraries...")
-    path = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), "lib")
-    for afile in os.listdir(path):
-        if afile.endswith(".dylib") or afile.endswith(".so"):
-            logger.debug("\t->{}".format(os.path.join(path, afile)))
-            gSystem.Load(os.path.join(path, afile))
+    # path = os.path.join(os.path.dirname(
+    #     os.path.abspath(__file__)), "lib")
+    # for afile in os.listdir(path):
+    #     if afile.endswith(".dylib") or afile.endswith(".so"):
+    #         logger.debug("\t->{}".format(os.path.join(path, afile)))
+    #         gSystem.Load(os.path.join(path, afile))
+
+
+    logger.debug("Import libraries...")
+    lib_path = []
+    lib_path.append(os.path.join("$<TARGET_PROPERTY:${KryptonPdflib_target},INSTALL_NAME_DIR>", "$<TARGET_FILE_NAME:${KryptonPdflib_target}>"))
+    lib_path.append(os.path.join("$<TARGET_PROPERTY:${TritiumPdflib_target},INSTALL_NAME_DIR>", "$<TARGET_FILE_NAME:${TritiumPdflib_target}>"))
+    lib_path.append(os.path.join("$<TARGET_PROPERTY:${PdfFactorylib_target},INSTALL_NAME_DIR>", "$<TARGET_FILE_NAME:${PdfFactorylib_target}>"))
+    
+    for item in lib_path:
+        logger.debug("\t->{}".format(item))
+        ROOT.gSystem.Load(item)
 
     logger.info("All set!")
