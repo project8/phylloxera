@@ -36,8 +36,3 @@ pbuilder_install_files (${LIB_INSTALL_DIR} ${TritiumPdf_dict_pcmfile})
 
 pbuilder_library (TritiumPdf TritiumPdf_sources TritiumPdf_dependencies )
 pbuilder_install_headers (${TritiumPdf_headers})
-
-
-    # set( lib_target Phylloxera${Phylloxera_PARENT_LIB_NAME_SUFFIX} CACHE PARENT_SCOPE )
-
-MESSAGE( status ${lib_target} ${Phylloxera_PARENT_LIB_NAME_SUFFIX})
