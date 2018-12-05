@@ -29,6 +29,7 @@ Fixes:
 
 * Issue with Package builder usage
 * Adding libraries (ToolBox and TritiumSpectrum)
+* Improved Docker build
 
 Version: 1.2.2
 ~~~~~~~~~~~~~~

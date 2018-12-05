@@ -16,3 +16,5 @@ set( sources
 
 pbuilder_library( TritiumSpectrum sources ToolBox)
 pbuilder_install_headers( ${headers} )
+
+set( lib_target Phylloxera${Phylloxera_PARENT_LIB_NAME_SUFFIX} )
