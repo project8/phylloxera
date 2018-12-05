@@ -20,15 +20,15 @@ RUN mkdir -p $PHLLOXERA_BUILD_PREFIX &&\
 ########################
 FROM phylloxera_common as phylloxera_done
 
+COPY Scarab /tmp_source/Scarab
+COPY src /tmp_source/src
+COPY CMakeLists.txt /tmp_source/CMakeLists.txt
+COPY this_phylloxera.sh.in /tmp_source/this_phylloxera.sh.in
+COPY .git /tmp_source/.git
+
 # repeat the cmake command to get the change of install prefix to set correctly (a package_builder known issue)
 RUN source $PHLLOXERA_BUILD_PREFIX/setup.sh &&\
-    mkdir /tmp_install &&\
-    cd /tmp_install &&\
-    git clone https://github.com/project8/phylloxera &&\
-    cd phylloxera &&\
-    git fetch && git fetch --tags &&\
-    git checkout $PHLLOXERA_TAG &&\
-    git submodule update --init --recursive &&\
+    cd /tmp_source &&\
     mkdir build &&\
     cd build &&\
     cmake -D CMAKE_BUILD_TYPE=$PHLLOXERA_BUILD_TYPE \
