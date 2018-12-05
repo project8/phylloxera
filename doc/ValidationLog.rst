@@ -18,6 +18,17 @@ Guidelines
 Log
 ---
   
+Version: v1.2.4
+~~~~~~~~~~~~~~~
+
+Release Date: Wed. Dec 5th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Update versions in Dockerfile
+
 Version: v1.2.3
 ~~~~~~~~~~~~~~~
 
