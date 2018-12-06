@@ -3,6 +3,7 @@
 ###################
 
 set( headers
+    TritiumSpectrum.hh
 )
 
 set( sources
@@ -13,7 +14,7 @@ set( sources
 # Library #
 ###########
 
-pbuilder_library( TritiumSpectrum sources headers "")
-target_link_libraries (TritiumSpectrum ${ROOT_LIBRARIES} ToolBox)
-pbuilder_install_libraries(TritiumSpectrum)
+pbuilder_library( TritiumSpectrum sources ToolBox)
 pbuilder_install_headers( ${headers} )
+
+set( lib_target Phylloxera${Phylloxera_PARENT_LIB_NAME_SUFFIX} )

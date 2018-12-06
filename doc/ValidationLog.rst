@@ -18,8 +18,32 @@ Guidelines
 Log
 ---
   
-Version: 1.2.2
-~~~~~~~~~~~~~~
+Version: v1.2.4
+~~~~~~~~~~~~~~~
+
+Release Date: Wed. Dec 5th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Update versions in Dockerfile
+
+Version: v1.2.3
+~~~~~~~~~~~~~~~
+
+Release Date: Wed. Dec 5th, 2018
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Issue with Package builder usage
+* Adding libraries (ToolBox and TritiumSpectrum)
+* Improved Docker build
+
+Version: v1.2.2
+~~~~~~~~~~~~~~~
 
 Release Date: Wed. June 27th, 2018
 ''''''''''''''''''''''''''''''''''
@@ -30,8 +54,8 @@ Fixes:
 * Update Scarab to v1.6.2
 
   
-Version: 1.2.1
-~~~~~~~~~~~~~~
+Version: v1.2.1
+~~~~~~~~~~~~~~~
 
 Release Date: Wed. June 27th, 2018
 ''''''''''''''''''''''''''''''''''
@@ -42,8 +66,8 @@ Fixes:
 * Reducing PhylloxeraPy verbosity
 * Update Scarab to v1.6.1
 
-Version: 1.2.0
-~~~~~~~~~~~~~~
+Version: v1.2.0
+~~~~~~~~~~~~~~~
 
 Release Date: April 5, 2018
 '''''''''''''''''''''''''''''''

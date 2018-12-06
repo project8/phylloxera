@@ -1,3 +1,7 @@
+# CMakeLists for Phylloxera
+# Author: M. Guigue
+# Date: Jan 15, 2018
+
 # Minimum cmake verison 3.1 required for the variable CMAKE_CXX_STANDARD
 cmake_minimum_required (VERSION 3.1)
 
@@ -6,7 +10,7 @@ cmake_minimum_required (VERSION 3.1)
 #########
 
 cmake_policy( SET CMP0048 NEW ) # version in project()
-project( Phylloxera VERSION 1.2.2 ) 
+project( Phylloxera VERSION 1.2.4 ) 
 
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Scarab/cmake)
 include( PackageBuilder )
@@ -28,17 +32,26 @@ option( Phylloxera_ENABLE_EXECUTABLES "Build executables" TRUE )
 # Scarab
 ########
 
+set( Scarab_BUILD_CODEC_JSON OFF )
+set( Scarab_BUILD_CODEC_YAML OFF )
+set( Scarab_BUILD_AUTHENTICATION OFF )
+set( Scarab_BUILD_PARAM OFF )
+set( Scarab_ENABLE_EXECUTABLES OFF )
+
 pbuilder_add_submodule( Scarab Scarab/library )
 
 ######
 # ROOT
 ######
 
-list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
-find_package(ROOT REQUIRED COMPONENTS fftw3 MathCore RIO Hist Tree Net TreePlayer)
-#include(${ROOT_USE_FILE})
-include_directories(${CMAKE_SOURCE_DIR} ${ROOT_INCLUDE_DIRS})
-add_definitions(${ROOT_CXX_FLAGS})
+find_package (ROOT 6.00)
+if (ROOT_FOUND)
+    pbuilder_add_ext_libraries (${ROOT_LIBRARIES})
+    #message(STATUS "${ROOT_LIBRARIES}")
+else (ROOT_FOUND)
+    message(FATAL "Unable to find ROOT")
+endif (ROOT_FOUND)
+include_directories (${ROOT_INCLUDE_DIR})
 
 ######
 # FFTW
@@ -57,36 +70,17 @@ include_directories (${FFTW_INCLUDE_DIR})
 message (STATUS "FFTW_LIBRARIES is ${FFTW_LIBRARIES}")
 
 #############
-# TritiumSpectrum
+# Sources
 #############
 
-# subdirectories
-include_directories (BEFORE 
-    ${PROJECT_SOURCE_DIR}/src/PdfFactory
-    ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/TritiumPdf
-    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
-    ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
-)
-# Since we don't use these libraries from the outside, there is no need to build a .dylib from these
-# add_subdirectory (src/ToolBox)
-# add_subdirectory (src/TritiumSpectrum)
-
-add_subdirectory (src/PdfFactory)
-add_subdirectory (src/TritiumPdf)
-add_subdirectory (src/KryptonPdf)
-IF (Phylloxera_ENABLE_EXECUTABLES)
-    include_directories(${PROJECT_SOURCE_DIR}/src/exe)
-    add_subdirectory (src/exe)
-ENDIF(Phylloxera_ENABLE_EXECUTABLES)
+add_subdirectory (src)
 
 #######################
 # installation config #
 #######################
 
-IF (Phylloxera_ADD_PHYLLOXERA_PY)
-    pbuilder_install_files (. ${PROJECT_SOURCE_DIR}/src/PhylloxeraPy.py "")
-ENDIF(Phylloxera_ADD_PHYLLOXERA_PY)
+configure_file( this_phylloxera.sh.in this_phylloxera.sh )
+pbuilder_install_files( ${BIN_INSTALL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/this_phylloxera.sh )
 
-pbuilder_install_config_files()
 pbuilder_variables_for_parent()
+
