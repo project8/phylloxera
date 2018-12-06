@@ -3,6 +3,7 @@
 #################
 
 set (TritiumPdf_dict_headers
+DistortedTritiumSpectrum.hh
 RealTritiumSpectrum.hh
 SimpleTritiumSpectrum.hh
 )
