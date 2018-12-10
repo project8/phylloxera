@@ -10,6 +10,7 @@
 // #pragma link C++ namespace Phylloxera;
 
 #pragma link C++ class DistortedTritiumSpectrum + ;
+#pragma link C++ class DistortedTritiumFrequencySpectrum + ;
 #pragma link C++ class RealTritiumSpectrum + ;
 #pragma link C++ class SimpleTritiumSpectrum + ;
 
