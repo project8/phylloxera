@@ -33,8 +33,9 @@ RealTritiumFrequencySpectrum::RealTritiumFrequencySpectrum(const RealTritiumFreq
 
 Double_t RealTritiumFrequencySpectrum::evaluate() const
 {
-    double y = (ElectronCharge()*B)/(2.0*TMath::Pi()*ElectronMassInKilogram()) * 1/F;
-    double KE = (y-1)*ElectronMassIneV();
+    y = (-ElectronCharge()*B)/(2.0*TMath::Pi()*ElectronMassInKilogram()) * 1/F;
+    KE = (y-1)*ElectronMassIneV();
+    //std::cout<<F<<" "<< KE<< " "<<TMath::Pi()<<" "<<B<<std::endl;
 
     if (TMath::Power(Q - KE, 2) < TMath::Power(mbeta, 2) || Q - KE < 0 || KE < 0.)
     {

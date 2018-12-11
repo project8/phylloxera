@@ -31,7 +31,10 @@ protected:
   RooRealProxy B;
   RooRealProxy Q;
   RooRealProxy mbeta;
-  //RooRealProxy KE;
+
+  mutable double KE;
+  mutable double y;
+  mutable double efficiency_factor;
 
   Double_t evaluate() const;
 
