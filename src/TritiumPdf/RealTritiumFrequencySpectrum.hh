@@ -10,6 +10,8 @@
 #include "RooRealProxy.h"
 #include "RooAbsReal.h"
 #include "RooAbsPdf.h"
+#include "RooArgList.h"
+#include "RooFormulaVar.h"
 
 // namespace Phylloxera
 // {
@@ -32,11 +34,22 @@ protected:
   RooRealProxy Q;
   RooRealProxy mbeta;
 
+
+
+
   mutable double KE;
   mutable double y;
-  mutable double efficiency_factor;
+
+  bool multiplyEfficiency;
+
+public:
+  mutable Double_t efficiency_factor;
+  RooArgList eff_coeff;
+  RooFormulaVar efficiency;
 
   Double_t evaluate() const;
+  void SetEfficiencyCoefficients(RooAbsReal*, RooAbsReal*, RooAbsReal*);
+  //void efficiency() const;
 
   ClassDef(RealTritiumFrequencySpectrum, 1) // Your description goes here...
 };
