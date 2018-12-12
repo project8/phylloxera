@@ -24,7 +24,7 @@ RealTritiumFrequencySpectrum::RealTritiumFrequencySpectrum(const char *name, con
                                                                mbeta("mbeta", "mbeta", this, _mbeta),
                                                                multiplyEfficiency(false)
 {
-
+    multiplyEfficiency = false;
 }
 
 RealTritiumFrequencySpectrum::RealTritiumFrequencySpectrum(const RealTritiumFrequencySpectrum &other, const char *name) : RooAbsPdf(other, name),
@@ -46,22 +46,15 @@ Double_t RealTritiumFrequencySpectrum::evaluate() const
         return 0.;
     }
 
-
-    //RooPolyVar efficiency("efficiency", "efficiency", F, eff_coeff, 0);
-    if (multiplyEfficiency)
+    if (false)
     {
-        int L = eff_coeff.size();
-        std::cout<<L<<std::endl;
+        //int L = eff_coeff.size();
+        //std::cout<<L<<std::endl;
         //this->CalculateEfficiency(F);
-        double a  =1;
         //std::cout<<efficiency_factor<<std::endl;
         //std::cout<<eff_coeff.at(1)<<std::endl;
-        return TritiumSpectrumShape(KE, Q, 1, mbeta) * a;
+        return TritiumSpectrumShape(KE, Q, 1, mbeta) * efficiency_factor;
     }
-    /*else
-    {
-        to_return =  TritiumSpectrumShape(KE, Q, 1, mbeta);
-    }*/
     return TritiumSpectrumShape(KE, Q, 1, mbeta);
 }
 
