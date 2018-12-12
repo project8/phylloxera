@@ -10,8 +10,7 @@
 #include "RooRealProxy.h"
 #include "RooAbsReal.h"
 #include "RooAbsPdf.h"
-#include "RooArgList.h"
-#include "RooFormulaVar.h"
+#include "RooArgSet.h"
 
 // namespace Phylloxera
 // {
@@ -44,11 +43,11 @@ protected:
 
 public:
   mutable Double_t efficiency_factor;
-  RooArgList eff_coeff;
-  RooFormulaVar efficiency;
+  std::vector<double> eff_coeff;
 
   Double_t evaluate() const;
-  void SetEfficiencyCoefficients(RooAbsReal*, RooAbsReal*, RooAbsReal*);
+  void SetEfficiencyCoefficients(RooArgSet*);
+  void CalculateEfficiency(double f) const;
   //void efficiency() const;
 
   ClassDef(RealTritiumFrequencySpectrum, 1) // Your description goes here...

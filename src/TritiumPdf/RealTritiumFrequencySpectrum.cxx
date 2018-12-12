@@ -23,9 +23,8 @@ RealTritiumFrequencySpectrum::RealTritiumFrequencySpectrum(const char *name, con
                                                                Q("Q", "Q", this, _Q),
                                                                mbeta("mbeta", "mbeta", this, _mbeta),
                                                                multiplyEfficiency(false)
-                                                               //efficiency("efficiency", "efficiency", "@0 + @1*TMath::Power(@2,1)", _eff_coeff)
-
 {
+
 }
 
 RealTritiumFrequencySpectrum::RealTritiumFrequencySpectrum(const RealTritiumFrequencySpectrum &other, const char *name) : RooAbsPdf(other, name),
@@ -47,40 +46,64 @@ Double_t RealTritiumFrequencySpectrum::evaluate() const
         return 0.;
     }
 
+
     //RooPolyVar efficiency("efficiency", "efficiency", F, eff_coeff, 0);
     if (multiplyEfficiency)
     {
-        efficiency_factor = efficiency.evaluate();
-        std::cout<<efficiency_factor<<std::endl;
-        return TritiumSpectrumShape(KE, Q, 1, mbeta) * efficiency_factor;
+        int L = eff_coeff.size();
+        std::cout<<L<<std::endl;
+        //this->CalculateEfficiency(F);
+        double a  =1;
+        //std::cout<<efficiency_factor<<std::endl;
+        //std::cout<<eff_coeff.at(1)<<std::endl;
+        return TritiumSpectrumShape(KE, Q, 1, mbeta) * a;
     }
-    else
+    /*else
     {
-        return TritiumSpectrumShape(KE, Q, 1, mbeta);
-    }
+        to_return =  TritiumSpectrumShape(KE, Q, 1, mbeta);
+    }*/
+    return TritiumSpectrumShape(KE, Q, 1, mbeta);
 }
 
-void RealTritiumFrequencySpectrum::SetEfficiencyCoefficients(RooAbsReal *p0, RooAbsReal *p1, RooAbsReal *var)
+void RealTritiumFrequencySpectrum::SetEfficiencyCoefficients(RooArgSet *a)
 {
-    multiplyEfficiency = false;
-    RooArgList eff_coeff(*p0, *p1, *var);
-    /*unsigned N = a->getSize();
+    /*double b = a->getRealValue("0");
+    double b1 = a->getRealValue("1");
+    std::cout<<b<<std::endl;
+    std::cout<<b1<<std::endl;*/
 
+    multiplyEfficiency = true;
+
+    int N = a->getSize();
+
+    std::cout<<"trying to get arglist content in loop"<<std::endl;
     std::cout<<N<<std::endl;
 
     for (int i = 0; i < N; i++)
     {
-        RooAbsArg* b = *(a->at(i));
-        eff_coeff.addOwned(b);
-        std::cout<<eff_coeff.at(i)<<std::endl;
-    }*/
-    RooFormulaVar efficiency("efficiency", "efficiency", "@0 + @1*TMath::Power(@2,1)", eff_coeff);
+        std::string s = std::to_string(i);
+        char const *pchar = s.c_str();
+        double* c = new double(a->getRealValue(pchar));
+        std::cout<<*c<<std::endl;
+        eff_coeff.push_back(*c);
+
+    }
+
+    int M = eff_coeff.size();
+    std::cout<<M<<eff_coeff.at(1)<<std::endl;
+}
+void RealTritiumFrequencySpectrum::CalculateEfficiency(double f) const
+{
+    int L = eff_coeff.size();
+    std::cout<<L<<std::endl;
+    efficiency_factor = 0;
+    for (int i = 0; i < L; i++)
+    {
+        std::cout<<" F "<<f<<std::endl;
+        efficiency_factor += eff_coeff.at(i) * TMath::Power(f, i);
+    }
 
 }
-/*void RealTritiumFrequencySpectrum::efficiency() const
-{
-    //efficiency = RooPolyVar("eff", "eff", F, eff_coeff);
-    efficiency_factor = efficiency.evaluate();
-}*/
+
 
 // }
