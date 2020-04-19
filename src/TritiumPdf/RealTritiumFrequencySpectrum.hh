@@ -39,18 +39,10 @@ protected:
   mutable double KE;
   mutable double y;
 
-  bool multiplyEfficiency;
 
 public:
-  mutable Double_t efficiency_factor;
-  std::vector<double> eff_coeff;
-
   Double_t evaluate() const;
-  void SetEfficiencyCoefficients(RooArgSet*);
-  void CalculateEfficiency(double f) const;
-  //void efficiency() const;
-
-  ClassDef(RealTritiumFrequencySpectrum, 1) // Your description goes here...
+  ClassDef(RealTritiumFrequencySpectrum, 1) // Tritium spectrum pdf based in frequency
 };
 // }
 
