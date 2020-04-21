@@ -12,8 +12,17 @@
 #include "RooAbsPdf.h"
 #include "RooArgSet.h"
 
-// namespace Phylloxera
-// {
+
+/*!
+@class RealTritiumFrequencySpectrum
+@author C. Claessens
+
+@brief
+Defines realistic sprectral shape for Tritium beta decay in frequency
+@details
+The Tritium spectrum shape that includes the R-factor is computed in the frequency domain using the CRES cyclotron frequency to energy relation.
+The B field is given in T, frequency in Hz and both kinetic energy and end-point are in eV.
+*/
 class RealTritiumFrequencySpectrum : public RooAbsPdf
 {
 public:
