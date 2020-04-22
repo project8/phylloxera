@@ -3,7 +3,7 @@ FROM project8/p8compute_dependencies:v0.2.0 as phylloxera_common
 ARG build_type=Release
 ENV PHLLOXERA_BUILD_TYPE=$build_type
 
-ENV PHLLOXERA_TAG=v1.2.4
+ENV PHLLOXERA_TAG=v1.2.5
 ENV PHLLOXERA_BUILD_PREFIX=/usr/local/p8/phylloxera/$PHLLOXERA_TAG
 
 RUN mkdir -p $PHLLOXERA_BUILD_PREFIX &&\

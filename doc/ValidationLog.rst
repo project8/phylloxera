@@ -17,7 +17,18 @@ Guidelines
 
 Log
 ---
-  
+
+Version: v1.2.5
+~~~~~~~~~~~~~~~
+
+Release Date: Wed. Apr 22nd, 2020
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''
+
+* Adding tritum frequency pdf
+
 Version: v1.2.4
 ~~~~~~~~~~~~~~~
 
