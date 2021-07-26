@@ -1,11 +1,14 @@
 # subdirectories
 include_directories (BEFORE 
-    ${PROJECT_SOURCE_DIR}/src/KryptonPdf
-    ${PROJECT_SOURCE_DIR}/src/PdfFactory
-    ${PROJECT_SOURCE_DIR}/src/ToolBox
-    ${PROJECT_SOURCE_DIR}/src/TritiumPdf
-    ${PROJECT_SOURCE_DIR}/src/TritiumSpectrum
+    ${CMAKE_CURRENT_SOURCE_DIR}/KryptonPdf
+    ${CMAKE_CURRENT_SOURCE_DIR}/PdfFactory
+    ${CMAKE_CURRENT_SOURCE_DIR}/ToolBox
+    ${CMAKE_CURRENT_SOURCE_DIR}/TritiumPdf
+    ${CMAKE_CURRENT_SOURCE_DIR}/TritiumSpectrum
 )
+
+pbuilder_use_sm_library( Scarab Scarab )
+
 # Since we don't use these libraries from the outside, there is no need to build a .dylib from these
 add_subdirectory (ToolBox)
 add_subdirectory (TritiumSpectrum)
@@ -13,8 +16,8 @@ add_subdirectory (TritiumSpectrum)
 add_subdirectory (PdfFactory)
 add_subdirectory (TritiumPdf)
 add_subdirectory (KryptonPdf)
+
 IF (Phylloxera_ENABLE_EXECUTABLES)
-    include_directories(${PROJECT_SOURCE_DIR}/src/exe)
     add_subdirectory (exe)
 ENDIF(Phylloxera_ENABLE_EXECUTABLES)
 
