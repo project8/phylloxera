@@ -20,3 +20,4 @@ inline double eVInJoule() { return 1.602176565e-19; }  // conversion of one eV i
 inline double eVInKilogram() { return 1.782662 - 36; } // conversion of one eV in kilogram
                                                        // double PhaseVelocity(){return ;}
                                                        // }
+                                                       

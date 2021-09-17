@@ -34,3 +34,6 @@ bin
 build
 .vscode
 *.pyc
+
+# Build directories
+build*

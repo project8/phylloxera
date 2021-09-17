@@ -1,16 +1,26 @@
-set (APPS_HEADERFILES
-
+set( PROJECT_LIBS
+    KryptonPdf
+    PdfFactory
+    TritiumPdf
 )
 
-set( LIB_DEPENDENCIES
-KryptonPdf
-PdfFactory
-TritiumPdf
+set( PROGRAMS )
+
+
+set( SOURCEFILES
+    KuriePlot.cxx
 )
 
-set( PROGRAMS
-KuriePlot
+pbuilder_executables( 
+    SOURCES ${SOURCEFILES}
+    TARGETS_VAR PROGRAMS
+    PROJECT_LIBRARIES ${PROJECT_LIBS}
+    PUBLIC_EXTERNAL_LIBRARIES ${PUBLIC_EXT_LIBS}
 )
 
-pbuilder_executables( PROGRAMS LIB_DEPENDENCIES )
-pbuilder_install_headers (${APPS_HEADERFILES})
+
+# Export
+pbuilder_component_install_and_export( 
+    COMPONENT Executables
+    EXETARGETS ${PROGRAMS}
+)
