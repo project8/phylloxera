@@ -21,13 +21,13 @@ Log
 Version: v1.3.0
 ~~~~~~~~~~~~~~~
 
-Release Date: July 26, 2021
+Release Date: Sept 17, 2021
 ''''''''''''''''''''''''''''''''''
 
 New Features:
 ''''''''''''''
 
-* Scarab updated to v3.7.1
+* Scarab updated to v3.8.0
 * Build system updated to Scarab v3's Package Builder
 
 Version: v1.2.5
