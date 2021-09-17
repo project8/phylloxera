@@ -2,7 +2,9 @@
 # TritiumSpectrum #
 ###################
 
-set( headers
+set (lib_name TritiumSpectrum)
+
+set ( headers
     TritiumSpectrum.hh
 )
 
@@ -11,10 +13,18 @@ set( sources
 )
 
 ###########
-# Library #
+# library #
 ###########
 
-pbuilder_library( TritiumSpectrum sources ToolBox)
-pbuilder_install_headers( ${headers} )
+pbuilder_library( 
+    TARGET ${lib_name}
+    SOURCES ${sources} 
+    PUBLIC_EXTERNAL_LIBRARIES ${PUBLIC_EXT_LIBS}
+)
 
-set( lib_target Phylloxera${Phylloxera_PARENT_LIB_NAME_SUFFIX} )
+pbuilder_component_install_and_export(
+    COMPONENT Library
+    LIBTARGETS ${lib_name}
+)
+
+pbuilder_install_headers( ${headers} )

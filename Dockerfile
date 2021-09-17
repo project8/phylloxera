@@ -1,9 +1,13 @@
-FROM project8/p8compute_dependencies:v0.2.0 as phylloxera_common
+ARG IMG_USER=project8
+ARG IMG_REPO=p8compute_dependencies
+ARG IMG_TAG=v1.0.0
+FROM ${IMG_USER}/${IMG_REPO}:${IMG_TAG} as phylloxera_common
 
 ARG build_type=Release
 ENV PHLLOXERA_BUILD_TYPE=$build_type
 
-ENV PHLLOXERA_TAG=v1.2.5
+ARG PHLLOXERA_TAG=beta
+ENV PHYLLOXERA_TAG=${PHYLLOXERA_TAG}
 ENV PHLLOXERA_BUILD_PREFIX=/usr/local/p8/phylloxera/$PHLLOXERA_TAG
 
 RUN mkdir -p $PHLLOXERA_BUILD_PREFIX &&\
@@ -24,6 +28,7 @@ COPY src /tmp_source/src
 COPY CMakeLists.txt /tmp_source/CMakeLists.txt
 COPY this_phylloxera.sh.in /tmp_source/this_phylloxera.sh.in
 COPY .git /tmp_source/.git
+COPY PhylloxeraConfig.cmake.in /tmp_source/PhylloxeraConfig.cmake.in
 
 # repeat the cmake command to get the change of install prefix to set correctly (a package_builder known issue)
 RUN source $PHLLOXERA_BUILD_PREFIX/setup.sh &&\
