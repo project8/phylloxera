@@ -2,33 +2,45 @@
 #   KryptonPdf  #
 #################
 
-set (KRYPTONPDF_HEADERFILES
-AsymmetricKryptonLine.hh
-KryptonLine.hh
+set( lib_name KryptonPdf )
+set( dict_name KryptonPdfDict )
+
+set (HEADERFILES
+    AsymmetricKryptonLine.hh
+    KryptonLine.hh
 )
 
-set (KRYPTONPDF_SOURCEFILES
-AsymmetricKryptonLine.cxx
-KryptonLine.cxx 
+set (SOURCEFILES
+    AsymmetricKryptonLine.cxx
+    KryptonLine.cxx 
 )
 
-set (KRYPTONPDF_DICT_HEADERFILES
-AsymmetricKryptonLine.hh
-KryptonLine.hh
-)
+set (LINKDEF_HEADERFILE LinkDef/KryptonPdfLinkDef.hh)
 
-set (KRYPTONPDF_LINKDEF_HEADERFILE LinkDef/KryptonPdfLinkDef.hh)
-set (KRYPTONPDF_SOURCEFILES ${KRYPTONPDF_SOURCEFILES} ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict.cxx)
-set (KRYPTONPDF_DICT_PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/KryptonPdfDict_rdict.pcm)
-
+set (PROJECT_LIBS ToolBox )
 
 # ###########
 # # Library #
 # ###########
 
+pbuilder_add_library(
+    TARGET ${lib_name}
+    SOURCES ${SOURCEFILES}
+)
 
-ROOT_GENERATE_DICTIONARY (KryptonPdfDict ${KRYPTONPDF_DICT_HEADERFILES} LINKDEF ${KRYPTONPDF_LINKDEF_HEADERFILE} OPTIONS -inlineInputHeader)
-pbuilder_install_files (${LIB_INSTALL_DIR} ${KRYPTONPDF_DICT_PCMFILE})
+message( STATUS "Generating ROOT dictionary <${dict_name}>")
+ROOT_GENERATE_DICTIONARY( ${dict_name} ${HEADERFILES} MODULE ${lib_name} LINKDEF ${LINKDEF_HEADERFILE} OPTIONS -inlineInputHeader )
+pbuilder_install_files (${LIB_INSTALL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${lib_name}_rdict.pcm)
 
-pbuilder_library( KryptonPdf KRYPTONPDF_SOURCEFILES ToolBox )
-pbuilder_install_headers (${KRYPTONPDF_HEADERFILES})
+pbuilder_link_library( 
+    TARGET ${lib_name} 
+    PROJECT_LIBRARIES ${PROJECT_LIBS}
+    PUBLIC_EXTERNAL_LIBRARIES ${PUBLIC_EXT_LIBS}
+)
+
+pbuilder_component_install_and_export( 
+    COMPONENT Library
+    LIBTARGETS ${lib_name}
+)
+
+pbuilder_install_headers( ${HEADERFILES} )

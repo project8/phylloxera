@@ -1,0 +1,20 @@
+# PhylloxeraConfig.cmake
+
+get_filename_component( Phylloxera_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH )
+
+include( CMakeFindDependencyMacro )
+find_dependency( Scarab REQUIRED PATHS ${Phylloxera_CMAKE_DIR}/Scarab @Scarab_BINARY_LOCATION@ )
+find_dependency( ROOT 6.20 REQUIRED CONFIG COMPONENTS @root_components@ )
+find_dependency( FFTW REQUIRED )
+
+if( NOT TARGET Phylloxera::@ToolBox_FULL_TARGET_NAME@ )
+    if( TARGET @ToolBox_FULL_TARGET_NAME@ )
+        add_library( Phylloxera::@ToolBox_FULL_TARGET_NAME@ ALIAS @ToolBox_FULL_TARGET_NAME@ )
+        add_library( Phylloxera::@TritiumSpectrum_FULL_TARGET_NAME@ ALIAS @TritiumSpectrum_FULL_TARGET_NAME@ )
+        add_library( Phylloxera::@TritiumPdf_FULL_TARGET_NAME@ ALIAS @TritiumPdf_FULL_TARGET_NAME@ )
+        add_library( Phylloxera::@PdfFactory_FULL_TARGET_NAME@ ALIAS @PdfFactory_FULL_TARGET_NAME@ )
+        add_library( Phylloxera::@KryptonPdf_FULL_TARGET_NAME@ ALIAS @KryptonPdf_FULL_TARGET_NAME@ )
+    else()
+        include("${Phylloxera_CMAKE_DIR}/Phylloxera_Library_Targets.cmake")
+    endif()
+endif()
