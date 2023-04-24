@@ -18,6 +18,18 @@ Guidelines
 Log
 ---
 
+Version: v1.3.1
+~~~~~~~~~~~~~~~
+
+Release Date: Apr 24, 2023
+''''''''''''''''''''''''''''''''''
+
+Fixes:
+''''''''''''''
+
+* Scarab updated to v3.9.4
+* Finished updating the build system to Scarab v3's Package Builder
+
 Version: v1.3.0
 ~~~~~~~~~~~~~~~
 
